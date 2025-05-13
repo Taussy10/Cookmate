@@ -27,20 +27,12 @@ const Index = () => {
       // Then push the user to home screeen 
       router.push('/home');
     } catch (error) {
-      // console.log('Error from loginUser fun in index.tsx', error);
-      // After trying
-      // 1. Console the error: for yourself so that you can know what's the error
-      // For explicityly showing that this console will show the error
-      // Error will be written in red in console
+ 
       console.error("Error in loginUser fun from index.tsx :",error);
-      // 2. If you want that user  know about error: then show it by Alerting 
+
       Alert.alert('Auth Error', 'Failed to Authorize');
-      // 3. Reject the promise:
-      //This code executes behind the scene: 
-      // return Promise.reject(new Error("Something went wrong"));
-      // cause it's returning so you can't write anything below it 
+
       throw new Error('Failed to Authorize')
-      // BTW you can know about new keyword later
 
     }
   };
@@ -102,18 +94,7 @@ for 3 horizontal items  */}
         <Text className="   font-semibold text-gray-600">with the power of AI</Text>
 
         <TouchableOpacity
-          // By this you create a new anymonous-function(A function without name) 
-          // so by this new anymonous function will have to call also
-          //  and it will be also render so not good for perfoarmance 
-         // BTW it looks like this:   
-         // When to use ? Want to pass params 
-        //  onPress={() => loginUser()}
-
-        // Passing the function as reference 
-        // Godd for performacne cause doesn't create a new function for each render 
-        // Don't knwo what does it mean then read: https://medium.com/%40adamjacobb/react-native-performance-arrow-functions-binding-3f09cbd57545
-        // Use it when you don't have to pass params 
-        // So in this case gonna use this one cause not passing params 
+      
           onPress={loginUser}
           activeOpacity={0.7}
           className="   bg-custom-green w-full flex-row items-center justify-center gap-2 rounded-xl p-2  p-3 ">

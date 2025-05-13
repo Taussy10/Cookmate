@@ -23,7 +23,8 @@ type GlobalContextType = {
 
 
 
-// why start with capital letter ? cause we are writing jsx using it
+// why start with capital letter ? cause we are writing jsx function a component using it
+// And it's a rule to write a component name starting with capital case 
 const AuthContext = createContext<GlobalContextType|undefined>(undefined);
 
 const AuthProvider = ({ children }:{children:React.ReactNode}) => {
