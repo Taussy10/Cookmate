@@ -2,8 +2,8 @@
 import { AntDesign, Entypo } from '@expo/vector-icons/';
 import { useRouter } from 'expo-router';
 import { View, Text, Image, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
-import { profileOptions } from '~/data/data';
-import { useAuthContext } from '~/contexts/auth-provider';
+import { profileOptions } from '../../../data/data';
+import { useAuthContext } from '../..//contexts/auth-provider';
 
 interface propsType  {
   id: number

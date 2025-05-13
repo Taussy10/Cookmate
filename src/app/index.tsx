@@ -6,34 +6,33 @@ import { Marquee } from '@animatereactnative/marquee';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
 import { createUser } from '../appwrite/appwrite';
-import { allImages, exploreData } from '~/data/data';
-import { useAuthContext } from '~/contexts/auth-provider';
+import { allImages, exploreData } from '../../data/data';
+import { useAuthContext } from '../contexts/auth-provider';
+import Hello from '../components/hello';
 
 const Index = () => {
   const { loggedIn, user } = useAuthContext();
   // if (!loggedIn && user) {
   // It's very bad code cause when loggedIn true then it doesn't let naviage to home screen
-  // instead if loggedIn is false then don't navigate 
+  // instead if loggedIn is false then don't navigate
   if (loggedIn && user) {
     return <Redirect href="/home" />;
   }
 
-  // This fun will login the user 
+  // This fun will login the user
   const loginUser = async () => {
     try {
-      // will call the createUser function 
-      // and store the return value in user variable 
+      // will call the createUser function
+      // and store the return value in user variable
       const user = await createUser();
-      // Then push the user to home screeen 
+      // Then push the user to home screeen
       router.push('/home');
     } catch (error) {
- 
-      console.error("Error in loginUser fun from index.tsx :",error);
+      console.error('Error in loginUser fun from index.tsx :', error);
 
       Alert.alert('Auth Error', 'Failed to Authorize');
 
-      throw new Error('Failed to Authorize')
-
+      throw new Error('Failed to Authorize');
     }
   };
 
@@ -43,8 +42,7 @@ const Index = () => {
 
       {/* Container for animations */}
       <View className=" mb-6 mt-3">
-
-{/* By marquee componet let the items animate from right to left 
+        {/* By marquee componet let the items animate from right to left 
 for 3 horizontal items  */}
         <Marquee
           spacing={10}
@@ -92,9 +90,8 @@ for 3 horizontal items  */}
         <Text className="  font-poppinsBold  text-custom-green  text-2xl">Cookmate AI</Text>
         <Text className="   font-semibold ">Generate delicious recipes in seconds</Text>
         <Text className="   font-semibold text-gray-600">with the power of AI</Text>
-
+      <Hello />
         <TouchableOpacity
-      
           onPress={loginUser}
           activeOpacity={0.7}
           className="   bg-custom-green w-full flex-row items-center justify-center gap-2 rounded-xl p-2  p-3 ">

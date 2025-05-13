@@ -1,7 +1,7 @@
 import { View, Text, SafeAreaView, FlatList, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import {useEffect, useState} from 'react';
-import images from '~/constants/images';
-import { getAllRecipes } from '~/appwrite/appwrite';
+import images from "../../../constants/images";
+import { getAllRecipes } from '../../../appwrite/appwrite';
 import { router } from 'expo-router';
 
 const Explore = () => {

@@ -12,9 +12,9 @@ import {
   RefreshControl,
 } from 'react-native';
 
-import { getAllRecipes, getBookmarkRecipe, getUserRecipe } from '~/appwrite/appwrite';
-import images from '~/constants/images';
-import { useAuthContext } from '~/contexts/auth-provider';
+import { getAllRecipes, getBookmarkRecipe, getUserRecipe } from '../../../appwrite/appwrite';
+import images from "../../../constants/images";
+import { useAuthContext } from '../../../contexts/auth-provider';
 
 
 const Cookbook = () => {

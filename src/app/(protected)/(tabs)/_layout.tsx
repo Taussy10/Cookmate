@@ -1,6 +1,7 @@
 import { Link, Tabs } from 'expo-router';
 import { Text, View, Image } from 'react-native';
-import images from '~/constants/images';
+// import images from '~/constants/images';
+import images from "../../../constants/images";
 
 interface propsType {
 // image: string;

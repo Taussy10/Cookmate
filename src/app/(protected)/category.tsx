@@ -1,8 +1,8 @@
 import { View, Text, FlatList, TouchableOpacity, ImageBackground, Image } from 'react-native';
 import { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { getsCategoryBasedRecipe } from '~/appwrite/appwrite';
-import images from '~/constants/images';
+import { getsCategoryBasedRecipe } from '../../appwrite/appwrite';
+import images from '../../constants/images';
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 
 const Category = () => {
