@@ -1,6 +1,4 @@
 import '../global.css';
-
-import '../global.css';
 import {
   Poppins_400Regular,
   useFonts,
