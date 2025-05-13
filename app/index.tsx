@@ -4,81 +4,56 @@ import { Redirect, router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { Marquee } from '@animatereactnative/marquee';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {createUser} from "appwrite/appwrite"
 import { AntDesign } from '@expo/vector-icons';
+import { createUser } from '../appwrite/appwrite';
 import { allImages, exploreData } from '~/data/data';
-import { colors } from '~/constants/colors';
 import { useAuthContext } from '~/contexts/auth-provider';
 
 const Index = () => {
   const { loggedIn, user } = useAuthContext();
-
-  // useAuthContenxt function returns these things
-  // {"loading": false, "loggedIn": true, }
-
-  //  only few wrote gives 10,20 things
-  //  So we need to destructure it
-
-  // Why need cause if next time user come then he won't go thorug process of login
-  // so store the user's data and send
-
-  if (loggedIn) {
+  // if (!loggedIn && user) {
+  // It's very bad code cause when loggedIn true then it doesn't let naviage to home screen
+  // instead if loggedIn is false then don't navigate 
+  if (loggedIn && user) {
     return <Redirect href="/home" />;
   }
 
-  const login = async () => {
-    try {
-      const result = await createUser();
-
-      if (result) {
-        console.log('Login successful');
-        router.replace('/home');
-      } else {
-        Alert.alert('Error', 'Failed to Login');
-      }
-    } catch (error) {
-      console.log('Error from join fun in index.tsx', error);
-      Alert.alert('Error', 'Failed to Login');
-    }
-  };
-
+  // This fun will login the user 
   const loginUser = async () => {
     try {
+      // will call the createUser function 
+      // and store the return value in user variable 
       const user = await createUser();
-      console.log('user :', user);
-
-      //  if (user) {
-      // router.push("/home")
-      //  }else{
-      //   router.push("/")
-      //  }
+      // Then push the user to home screeen 
+      router.push('/home');
     } catch (error) {
-      console.log('Error from loginUser fun in index.tsx', error);
-      Alert.alert('Auth Error', 'Authization failure');
+      // console.log('Error from loginUser fun in index.tsx', error);
+      // After trying
+      // 1. Console the error: for yourself so that you can know what's the error
+      // For explicityly showing that this console will show the error
+      // Error will be written in red in console
+      console.error("Error in loginUser fun from index.tsx :",error);
+      // 2. If you want that user  know about error: then show it by Alerting 
+      Alert.alert('Auth Error', 'Failed to Authorize');
+      // 3. Reject the promise:
+      //This code executes behind the scene: 
+      // return Promise.reject(new Error("Something went wrong"));
+      // cause it's returning so you can't write anything below it 
+      throw new Error('Failed to Authorize')
+      // BTW you can know about new keyword later
+
     }
   };
 
-  // const login = async () => {
-  //   const response = await createUser();
-  //   if (response) {
-  //     router.replace('/home');
-  //   } else {
-  //     Alert.alert('Error', 'Not authorize');
-  //   }
-  //   try {
-  //     // await createUser()
-  //     router.replace('/home');
-  //   } catch (error) {
-  //     console.log(error);
-  //     return;
-  //   }
-  // };
-
   return (
-    // bg-green-300
-    <SafeAreaView className="flex-1     bg-blue-300 px-4 ">
+    <SafeAreaView className="flex-1   bg-blue-300 px-4 ">
       <StatusBar backgroundColor="white" />
+
+      {/* Container for animations */}
       <View className=" mb-6 mt-3">
+
+{/* By marquee componet let the items animate from right to left 
+for 3 horizontal items  */}
         <Marquee
           spacing={10}
           speed={0.9}
@@ -120,20 +95,28 @@ const Index = () => {
         </Marquee>
       </View>
 
-      {/* App Info container*/}
+      {/* App Info and Login container*/}
       <View className="  h-56 items-center  justify-center rounded-xl bg-green-500   p-5 ">
-        <Text className="  font-poppinsBold  text-2xl  text-custom-green">Cookmate AI</Text>
+        <Text className="  font-poppinsBold  text-custom-green  text-2xl">Cookmate AI</Text>
         <Text className="   font-semibold ">Generate delicious recipes in seconds</Text>
         <Text className="   font-semibold text-gray-600">with the power of AI</Text>
 
         <TouchableOpacity
-          // why in arrow functin ? cause we want to provide params in it
-          // onPress={() => handleSignIn('oauth_google')}
-          // Replace push with replace cause we if user have accesed home screen the shouldn't go again onboarding screen
-          // onPress={() => router.push("/home")}
-          onPress={() => createUser()}
+          // By this you create a new anymonous-function(A function without name) 
+          // so by this new anymonous function will have to call also
+          //  and it will be also render so not good for perfoarmance 
+         // BTW it looks like this:   
+         // When to use ? Want to pass params 
+        //  onPress={() => loginUser()}
+
+        // Passing the function as reference 
+        // Godd for performacne cause doesn't create a new function for each render 
+        // Don't knwo what does it mean then read: https://medium.com/%40adamjacobb/react-native-performance-arrow-functions-binding-3f09cbd57545
+        // Use it when you don't have to pass params 
+        // So in this case gonna use this one cause not passing params 
+          onPress={loginUser}
           activeOpacity={0.7}
-          className="   w-full flex-row items-center justify-center gap-2 rounded-xl bg-custom-green p-2  p-3 ">
+          className="   bg-custom-green w-full flex-row items-center justify-center gap-2 rounded-xl p-2  p-3 ">
           <AntDesign name="google" size={24} color="black" />
           <Text className="  text-base   font-semibold">Continue with Google</Text>
         </TouchableOpacity>

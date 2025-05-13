@@ -1,8 +1,16 @@
-import { Client, Account, Databases, ID, OAuthProvider, Query, Models } from 'react-native-appwrite';
+import {
+  Client,
+  Account,
+  Databases,
+  ID,
+  OAuthProvider,
+  Query,
+  Models,
+} from 'react-native-appwrite';
 import { makeRedirectUri } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import { Modal } from 'react-native';
-import * as Linking from "expo-linking"
+import * as Linking from 'expo-linking';
 
 // Use for handling browser-based authentication.
 // basically it will open google's consent-screen(A screen where you can select gmail account for login)
@@ -103,66 +111,59 @@ client.setEndpoint(config.endpoint!).setProject(config.projectId!).setPlatform(c
 //   }
 // };
 
-export const createUser = async() => {
-try {
-  // What if everything happens correct ? Go to this URI
-  // poining to onboarding screen
-  const redirectUri = Linking.createURL("/");
-  // Ask OAut token from appwrite using google Provider
-const response =  await account.createOAuth2Token(
-    OAuthProvider.Google,
-    redirectUri
-  )
+export const createUser = async () => {
+  try {
+    // What if everything happens correct ? Go to this URI
+    // poining to onboarding screen
+    const redirectUri = Linking.createURL('/');
+    // Ask OAut token from appwrite using google Provider
+    const response = await account.createOAuth2Token(OAuthProvider.Google, redirectUri);
 
-  // If not get Token 
-  if (!response) throw new Error("Failed to Login")
+    // If not get Token
+    if (!response) throw new Error('Failed to Login');
 
-    // If got token then open a browser for auth asynchronously 
+    // If got token then open a browser for auth asynchronously
     const browserResult = await WebBrowser.openAuthSessionAsync(
       // pass resonse as string
       response.toString(),
       // Also redirectURI
       redirectUri
-    )
+    );
     // If not browser not able to login then throw error
-    if (browserResult.type !=="success") throw new Error("Browser didn't open")
+    if (browserResult.type !== 'success') throw new Error("Browser didn't open");
 
-      // If not browser able to login
-      // create a url of it
-      const url = new URL(browserResult.url)
+    // If not browser able to login
+    // create a url of it
+    const url = new URL(browserResult.url);
 
-      // then extraact secret and  from browserURL 
-      const secret = url.searchParams.get('secret')?.toString()
-      const userId = url.searchParams.get('userId')?.toString()
+    // then extraact secret and  from browserURL
+    const secret = url.searchParams.get('secret')?.toString();
+    const userId = url.searchParams.get('userId')?.toString();
 
-      // if no secret or userId exist then throw a error
-      if(!secret || !userId) throw new Error("Didn't get any secret")
+    // if no secret or userId exist then throw a error
+    if (!secret || !userId) throw new Error("Didn't get any secret");
 
-        // if got secret or userId
-        const session = await account.createSession(userId, secret)
+    // if got secret or userId
+    const session = await account.createSession(userId, secret);
 
-        if(!session) throw new Error("Didn't able to create sessions")
+    if (!session) throw new Error("Didn't able to create sessions");
 
-          return session;
-
-} catch (error) {
-  console.log("Error from login in appwrite.ts :", error);
-  throw new Error("Error while trying to login ");
-  
-  
-}
-}
-
-export const logout = async() => {
-  try {
-    // only current jo bhi iss id address par hai uska 
-   await account.deleteSession("current")
-   
+    return session;
   } catch (error) {
-    console.log("Error from login in appwrite.ts :", error);
-    throw new Error("Error while trying to login "); 
+    console.log('Error from login in appwrite.ts :', error);
+    throw new Error('Error while trying to login ');
   }
-} 
+};
+
+export const logout = async () => {
+  try {
+    // only current jo bhi iss id address par hai uska
+    await account.deleteSession('current');
+  } catch (error) {
+    console.log('Error from login in appwrite.ts :', error);
+    throw new Error('Error while trying to login ');
+  }
+};
 
 export const getCurrentUser = async () => {
   try {
@@ -176,9 +177,10 @@ export const getCurrentUser = async () => {
   } catch (error) {
     console.log('Error from getAccount fun in appwrite.ts ', error);
     // that means we didn't get anything
-    return null
+    return null;
   }
 };
+
 
 export const addRecipe = async (parsedRecipe: any, aiImage: string, email: string) => {
   console.log('AIImage from appwrite :', aiImage);
@@ -248,7 +250,7 @@ export const getAllRecipes = async () => {
   }
 };
 
-export const getUserRecipe = async (email:string) => {
+export const getUserRecipe = async (email: string) => {
   try {
     const promise = await database.listDocuments(config.databaseId!, config.recipeCollectionId!, [
       Query.equal('email', email),
@@ -260,7 +262,7 @@ export const getUserRecipe = async (email:string) => {
   }
 };
 
-export const getsCategoryBasedRecipe = async (category:string) => {
+export const getsCategoryBasedRecipe = async (category: string) => {
   try {
     const promise = await database.listDocuments(config.databaseId!, config.recipeCollectionId!, [
       Query.equal('category', category),
@@ -272,8 +274,8 @@ export const getsCategoryBasedRecipe = async (category:string) => {
   }
 };
 
-export const addBookmark = async (id:string, email:string) => {
-// export const addBookmark = async () => {
+export const addBookmark = async (id: string, email: string) => {
+  // export const addBookmark = async () => {
   try {
     const promise = await database.createDocument(
       config.databaseId!,
@@ -285,41 +287,37 @@ export const addBookmark = async (id:string, email:string) => {
         recipeId: id,
         // recipeId: "68034a0e001fd0ec0deb",
       }
-  );
+    );
 
-  console.log("Added bookmark :",promise);
-  
+    console.log('Added bookmark :', promise);
   } catch (error) {
     console.log('from addBookmark fun in appwrite.ts :', error);
   }
 };
 
-
-export const getBookmarkRecipe = async (email:string) => {
+export const getBookmarkRecipe = async (email: string) => {
   try {
-  const response =  await database.listDocuments(
+    const response = await database.listDocuments(
       config.databaseId!,
       config.bookmarkCollectionId!,
-       [
-      // Query.equal('email', 'tausif01092@gmail.com') 
-      Query.equal('email', email) 
+      [
+        // Query.equal('email', 'tausif01092@gmail.com')
+        Query.equal('email', email),
+      ]
+    );
+
+    // Ab sirf recipeId nikaal lo:
+    const recipeIds = response.documents.map((doc) => doc.recipeId);
+    console.log('Response :', response);
+
+    console.log('RecipeIds :', recipeIds);
+
+    const promise = await database.listDocuments(config.databaseId!, config.recipeCollectionId!, [
+      // Return recipeID
+      Query.equal('$id', recipeIds),
     ]);
 
-   // Ab sirf recipeId nikaal lo:
-const recipeIds = response.documents.map(doc => doc.recipeId);
-console.log("Response :",response);
-
-console.log("RecipeIds :",recipeIds);
-
-const promise = await database.listDocuments(
-  config.databaseId!,
-  config.recipeCollectionId!,
-   [
-    // Return recipeID 
-  Query.equal('$id', recipeIds) 
-]);
-
-return promise.documents
+    return promise.documents;
   } catch (error) {
     console.log('from getBookmarkRecipe fun in appwrite.ts :', error);
   }
@@ -327,18 +325,15 @@ return promise.documents
 
 export const getLatestRecipes = async () => {
   try {
-  const response =  await database.listDocuments(
-      config.databaseId!,
-      config.recipeCollectionId!,
-       [
-        // As a param accept attribute name ? how to know which params pass ? find in return
-        // response.documents cause many params are not listed in collections for example @createdAt 
-        // Descending means 5,4,3,2,1 so it will show latest(5) created data first 
-        // if you use orderDesc which means 1,3,2, so it will show oldes data according to 
-        Query.orderDesc("$createdAt"),
-        Query.limit(4) 
-      ]);
-return response.documents
+    const response = await database.listDocuments(config.databaseId!, config.recipeCollectionId!, [
+      // As a param accept attribute name ? how to know which params pass ? find in return
+      // response.documents cause many params are not listed in collections for example @createdAt
+      // Descending means 5,4,3,2,1 so it will show latest(5) created data first
+      // if you use orderDesc which means 1,3,2, so it will show oldes data according to
+      Query.orderDesc('$createdAt'),
+      Query.limit(4),
+    ]);
+    return response.documents;
   } catch (error) {
     console.log('from getBookmarkRecipe fun in appwrite.ts :', error);
   }

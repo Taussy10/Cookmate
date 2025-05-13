@@ -3,6 +3,7 @@ import { AntDesign, Entypo } from '@expo/vector-icons/';
 import { useRouter } from 'expo-router';
 import { View, Text, Image, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
 import { profileOptions } from '~/data/data';
+import { useAuthContext } from '~/contexts/auth-provider';
 
 interface propsType  {
   id: number
@@ -12,6 +13,12 @@ interface propsType  {
 
 const Profile = () => {
   const router = useRouter();
+    const { loggedIn, user } = useAuthContext();
+  console.log("LoggedIn :",loggedIn);
+  console.log("user :",user);
+  
+  
+
   return (
     <SafeAreaView
       // This is design requriements
