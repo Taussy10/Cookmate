@@ -2,17 +2,21 @@ import { Link, Tabs } from 'expo-router';
 import { Text, View, Image } from 'react-native';
 // import images from '~/constants/images';
 import images from "~/constants/images";
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 
 interface propsType {
 // image: string;
-color: string
+color: string;
+title: string;
 }
 
 // Custom Icons for Tabs
-const TabBarIcon = ({ image, color}:propsType) => {
+const TabBarIcon = ({ image, color, title}:propsType) => {
   return (
-    <View>
+    <View className='  flex-1 w-full bg-green-500'>
       <Image source={image} className=" h-7 w-7" />
+      <Text className=' text-[10px] text-center font-semibold'>{title}</Text>
     </View>
   );
 };
@@ -23,12 +27,13 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: 'black',
         headerShown: false,
+        tabBarShowLabel: false,
       }}>
       <Tabs.Screen
         name="home"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <TabBarIcon image={images.star} color={color} />,
+          // title: 'Home',
+          tabBarIcon: ({ color }) => <TabBarIcon title="Home" image={images.star} color={color} />,
         }}
       />
       <Tabs.Screen

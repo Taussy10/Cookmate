@@ -244,8 +244,14 @@ export const addRecipe = async (parsedRecipe: any, aiImage: string, email: strin
 
 export const getAllRecipes = async () => {
   try {
-    const promise = await database.listDocuments(config.databaseId!, config.recipeCollectionId!);
-
+    const promise = await database.listDocuments(
+      config.databaseId!, 
+      config.recipeCollectionId!,
+    [
+      // Later increase it but may be not more than 50
+      // or add a infinite scrolling the more you scroll the more you get 
+      Query.limit(10)
+    ]);
     return promise.documents;
   } catch (error) {
     console.log('from getAllRecipes fun in appwrite.ts :', error);
