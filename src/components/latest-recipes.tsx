@@ -17,7 +17,7 @@ const LatestRecipes = ({ data }) => {
           // this is container
           <TouchableOpacity
             activeOpacity={0.7}
-            className="  mx-2  my-2 bg-green-500"
+            className="  mx-2  my-2 "
             onPress={() =>
               router.push({
                 pathname: '/details/[id]',

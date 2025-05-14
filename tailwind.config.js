@@ -10,7 +10,13 @@ module.exports = {
       pRegular: ["Poppins_400Regular"],
       pSemibold: ["Poppins_600SemiBold"],
       pBold: ["Poppins_700Bold"],
-    }},
+    },
+  colors: {
+    primary: '#f6f6f4',
+    secondary: '#ffffff',
+    accent: '#4ade80'
+  }
+  },
   },
   plugins: [],
 };

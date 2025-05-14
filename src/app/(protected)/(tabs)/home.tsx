@@ -118,7 +118,6 @@ const Home = () => {
       const prompt = `recipeName: ${option.recipeName} Description: ${option.desc} ${prompts.GENERATE_COMPLETE_RECIPE}`;
       const AiResult = await Model(prompt);
       console.log('AI result for compelete recipe  :', AiResult);
-      // const cleaned =  AiResult.replace(/```json|```/g, '').trim();
       const cleaned = jsonrepair(AiResult);
       console.log('CleanedResult for compelete recipe: ', cleaned);
       // then parse it
@@ -141,7 +140,7 @@ const Home = () => {
 
   return (
     // <SafeAreaView className="flex-1 bg-blue-300 px-4 ">
-    <SafeAreaView className="flex-1 bg-[#f6f6f4] px-4 ">
+    <SafeAreaView className="bg-primary  flex-1 px-4    ">
       {/* So , in this we have 4 sections:
 1. Name and pfp(don't care about veg option)
 2. userInput filed  
@@ -158,19 +157,19 @@ const Home = () => {
         showsVerticalScrollIndicator={false}
         // numColumns={4}
         // horizontal
-        // For userInfor TextInput 
+        // For userInfor TextInput
         ListHeaderComponent={
-          // Firstly need a container
-          <View className="mb-6">
-            <View className=" mb-3 bg-orange-500">
+          // Container for user info and generating images
+          <View className="mb-6 mt-4">
+            {/* Container for userInfo */}
+            <View className=" mb-3 ">
               {/* name-pfp: profile image and name */}
-              <View className=" mb-6 mt-3 flex-row items-center gap-2 ">
-                {/* If you export default images from files then for some reason you don't need require why know the reason  */}
-                <Image source={image.star} className="mb-3 h-14 w-14 rounded-full" />
-                {/* <Image source={icons.logout} resizeMode="contain" className="  h-6 w-6" /> */}
-
-                <Text className="font-poppinsRegular text-3xl font-bold">{user?.name}</Text>
-              </View>
+              {/* <View className=" mb-6 mt-3 flex-row items-center gap-2 "> */}
+              {/* If you export default images from files then for some reason you don't need require why know the reason  */}
+              <Text className="font-poppinsRegular text-xl font-bold">Hi {user?.name}</Text>
+              {/* <Image source={image.star} className="mb-3 h-14 w-14 rounded-full" /> */}
+              {/* <Image source={icons.logout} resizeMode="contain" className="  h-6 w-6" /> */}
+              {/* </View> */}
             </View>
             <View className="  w-full rounded-2xl  bg-green-300 p-6">
               <Text className=" font-poppinsBold mb-3 text-center   text-xl">
@@ -212,85 +211,45 @@ const Home = () => {
           </View>
         }
         renderItem={() => (
-          // this is container
+          // container for categories
           <View>
-          <FlatList 
-          data={categoryData}
-          numColumns={3}
-      
-          // ItemSeparatorComponent={(
-          //   <View className=' mb-4'>
-          //   </View>
-          // )}
-          renderItem={({item}) => (
-            <View className=' flex-1 items-center'>
-
-           
-         {/* <TouchableOpacity 
-            onPress={() =>
-              router.push({
-                pathname: '/category',
-                params: item,
-              })
-            }
-            activeOpacity={0.7}
-            // This is for each coloumn 
-            className="  p-1  justify-between items  "
-         
-            > */}
-              {/* bg-orange-500  */}
-            {/* For each item */}
-            
-            <TouchableOpacity
-             onPress={() =>
-              router.push({
-                pathname: '/category',
-                params: item,
-              })
-            }
-            activeOpacity={0.7}
-            className= "bg-[#fffefe] px-1 active:bg-green-400 rounded-lg w-24  justify-center items-center mb-6 "
-            // style={{elevation: 1}}
-   
-            >
-              <Image
-                source={item.img}
-                // resizeMode="cover"
-                className="size-16 overflow-hidden rounded-full mb-1    "
-              />
-              <Text className="    font-pSemibold  "
-              // numberOfLines={1}
-              >{item.name}</Text>
-            </TouchableOpacity>
-          {/* </TouchableOpacity>   */}
-           </View>
-          )}
-          />
+            <FlatList
+              data={categoryData}
+              numColumns={3}
+              renderItem={({ item }) => (
+                <View className=" flex-1 items-center ">
+                  {/* For each item */}
+                  <TouchableOpacity
+                    onPress={() =>
+                      router.push({
+                        pathname: '/category',
+                        params: item,
+                      })
+                    }
+                    activeOpacity={0.4}
+                    className="bg-secondary active:bg-accent mb-6 w-24 items-center justify-center rounded-lg  px-1 ">
+                    <Image
+                      source={item.img}
+                      // resizeMode="cover"
+                      className="mb-1 size-16 overflow-hidden rounded-full    "
+                    />
+                    <Text
+                      className="    font-pSemibold  "
+                      // numberOfLines={1}
+                    >
+                      {item.name}
+                    </Text>
+                  </TouchableOpacity>
+                  {/* </TouchableOpacity>   */}
+                </View>
+              )}
+            />
           </View>
-          // <TouchableOpacity
-          //   onPress={() =>
-          //     router.push({
-          //       pathname: '/category',
-          //       params: item,
-          //     })
-          //   }
-          //   activeOpacity={0.7}
-          //   className="  flex-row bg-orange-500 ">
-          //   {/* For item */}
-          //   <View className="mr-20 justify-center text-center">
-          //     <Image
-          //       source={item.img}
-          //       resizeMode="cover"
-          //       className="  h-14 w-14 overflow-hidden rounded-full    "
-          //     />
-          //     <Text className=" font-poppinsSemiBold   text-center ">{item.name}</Text>
-          //   </View>
-          // </TouchableOpacity>
         )}
         // So we have to add something in footer of section
         ListFooterComponent={
-          <View className=" mt-6">
-           <LatestRecipes data = {latestRecipes} />
+          <View className=" mb-6 mt-6">
+            <LatestRecipes data={latestRecipes} />
           </View>
         }
       />
