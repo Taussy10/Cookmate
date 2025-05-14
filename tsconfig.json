@@ -10,8 +10,8 @@
       // but we want fo data/data that's out of src and assets
        // "./src/*"
       "~/*": [
-        // "./src/*"
         "./src/*"
+        //  "./*"
       ]
     }
   },

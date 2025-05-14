@@ -5,7 +5,12 @@ module.exports = {
 
   presets: [require('nativewind/preset')],
   theme: {
-    extend: {},
+    extend: {
+    fontFamily:{
+      pRegular: ["Poppins_400Regular"],
+      pSemibold: ["Poppins_600SemiBold"],
+      pBold: ["Poppins_700Bold"],
+    }},
   },
   plugins: [],
 };

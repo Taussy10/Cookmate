@@ -13,9 +13,9 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Entypo } from '@expo/vector-icons/';
 // import { categoryData, exploreData } from '~/data/data';
-import { categoryData, exploreData } from 'data/data';
+import { categoryData, exploreData } from '~/data/data';
 import image from '~/constants/images';
-import { useState, useRef , useEffect} from 'react';
+import { useState, useRef, useEffect } from 'react';
 // import { prompts } from '~/constants/prompt';
 import { prompts } from '~/constants/prompt';
 import ActionSheet, { ActionSheetRef } from 'react-native-actions-sheet';
@@ -30,26 +30,26 @@ import { jsonrepair } from 'jsonrepair';
 import { Redirect, router } from 'expo-router';
 import { useAuthContext } from '~/contexts/auth-provider';
 import { account } from '~/appwrite/appwrite';
+import LatestRecipes from '~/components/latest-recipes';
 const Home = () => {
-  // here we go we executing useAuthContext 
+  // here we go we executing useAuthContext
   // that will return context value such loggedIn , setLoggedIn , user etc ..
   // cause thre are in object(yeah key and values are same)
-  // so two ways to get them 
+  // so two ways to get them
 
-  // 1. store it in a variables then by dot method get the each props 
+  // 1. store it in a variables then by dot method get the each props
   // for example
   // const a= useAuthContext()
   // a.loading
- 
-  // 2. Destructure it 
-  const {user, loggedIn} = useAuthContext()
 
-  console.log("User is me",user, loggedIn);
+  // 2. Destructure it
+  const { user, loggedIn } = useAuthContext();
+
+  console.log('User is me', user, loggedIn);
   // async function name() {
   //   const use =  await account.get()
   //   console.log("User : ",use);
   // }
-  
 
   const actionSheetRef = useRef<ActionSheetRef>(null);
   const [inputHeight, setInputHeight] = useState(0);
@@ -62,24 +62,20 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [openLoading, setOpenLoading] = useState(false);
   const [compeleteRecipe, setCompeleteRecipe] = useState([]);
-  const [latestRecipes, setLatestRecipes] = useState([])
+  const [latestRecipes, setLatestRecipes] = useState([]);
 
-useEffect(() => {
- const allLatestRecipes = async() => {
-  const result = await getLatestRecipes()
-   setLatestRecipes(result)
- }
- allLatestRecipes()
-}, [])
-console.log("LatestRecipesfrom home.tsx :",latestRecipes);
+  useEffect(() => {
+    const allLatestRecipes = async () => {
+      const result = await getLatestRecipes();
+      setLatestRecipes(result);
+    };
+    allLatestRecipes();
+  }, []);
+  console.log('LatestRecipesfrom home.tsx :', latestRecipes);
 
+  // console.log("USerEmail :", );
 
-// console.log("USerEmail :", );
-
-
-
-
-  const press = async () => {
+  const generateRecipe = async () => {
     if (userInput.length < 2) {
       Alert.alert('Error', 'Please write your food name');
       // why return ? Return ends the program
@@ -142,7 +138,6 @@ console.log("LatestRecipesfrom home.tsx :",latestRecipes);
     }
   };
 
- 
   return (
     <SafeAreaView className="flex-1 bg-blue-300 px-4 ">
       {/* So , in this we have three sections:
@@ -151,7 +146,6 @@ console.log("LatestRecipesfrom home.tsx :",latestRecipes);
 3. Category 
 4. Latest Recipies
 */}
-
 
       {/* For creating category*/}
       <FlatList
@@ -172,7 +166,7 @@ console.log("LatestRecipesfrom home.tsx :",latestRecipes);
               </View>
             </View>
             <View className="  w-full rounded-2xl  bg-green-300 p-6">
-              <Text className=" mb-3 text-center font-poppinsBold   text-xl">
+              <Text className=" font-poppinsBold mb-3 text-center   text-xl">
                 {' '}
                 Let's start cooking
               </Text>
@@ -193,7 +187,7 @@ console.log("LatestRecipesfrom home.tsx :",latestRecipes);
               />
 
               <TouchableOpacity
-                onPress={press}
+                onPress={generateRecipe}
                 // onPress={() => name()}
                 activeOpacity={0.7}
                 className=" flex-row items-center justify-center gap-1  rounded-xl bg-green-500 p-3">
@@ -213,13 +207,15 @@ console.log("LatestRecipesfrom home.tsx :",latestRecipes);
         }
         renderItem={({ item }) => (
           // this is container
-          <TouchableOpacity 
-          onPress={() => router.push(
-            {
-              pathname:"/category", 
-              params: item
-            })}
-          activeOpacity={0.7} className="  flex-row bg-orange-500 ">
+          <TouchableOpacity
+            onPress={() =>
+              router.push({
+                pathname: '/category',
+                params: item,
+              })
+            }
+            activeOpacity={0.7}
+            className="  flex-row bg-orange-500 ">
             {/* For item */}
             <View className="mr-20 justify-center text-center">
               <Image
@@ -227,56 +223,14 @@ console.log("LatestRecipesfrom home.tsx :",latestRecipes);
                 resizeMode="cover"
                 className="  h-14 w-14 overflow-hidden rounded-full    "
               />
-              <Text className=" text-center   font-poppinsSemiBold ">{item.name}</Text>
+              <Text className=" font-poppinsSemiBold   text-center ">{item.name}</Text>
             </View>
           </TouchableOpacity>
         )}
         // So we have to add something in footer of section
         ListFooterComponent={
           <View className=" mt-6">
-            <Text className=" font-poppinsBold text-xl">Latest Recipes</Text>
-            {/* For creating category*/}
-            <FlatList
-              data={latestRecipes}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              // keyExtractor={(index) => index.id  }
-              renderItem={({ item }) => (
-                // this is container
-                <TouchableOpacity activeOpacity={0.7} 
-                className="  mx-2  my-2 bg-green-500"
-                onPress={() => router.push({
-                  pathname: "/details/[id]",
-                  params: item
-                })}
-               
-                >
-                  <ImageBackground
-                  source={{
-                    uri: item?.aiImage }}
-                    resizeMode="cover"
-                    resizeMethod="auto"
-                    className="h-48 w-64 overflow-hidden rounded-2xl ">
-                    <Image
-                      source={images.gradient}
-                      style={{
-                        height: '20%',
-                        width: '100%',
-                        position: 'absolute',
-                        bottom: 0,
-                        backgroundColor: '#111827',
-                      }}
-                    />
-                    <Text
-                      style={{ position: 'absolute', bottom: 4 }}
-                      numberOfLines={2}
-                      className=" w-full text-center font-poppinsBold  text-white ">
-                {item?.recipeName.length < 10 ? item?.recipeName : item?.recipeName.slice(0, 15)}...
-                </Text>
-                  </ImageBackground>
-                </TouchableOpacity>
-              )}
-            />
+           <LatestRecipes data = {latestRecipes} />
           </View>
         }
       />
@@ -284,7 +238,7 @@ console.log("LatestRecipesfrom home.tsx :",latestRecipes);
       <Loading visible={openLoading} text={'Loading...'} />
       <ActionSheet ref={actionSheetRef}>
         <View className=" rounded-lg  px-4 py-2  ">
-          <Text className=" text-center font-poppinsBold text-lg">Select your Recipe.</Text>
+          <Text className=" font-poppinsBold text-center text-lg">Select your Recipe.</Text>
           {/* <View> */}
           {recipeOptions?.map((item, index) => {
             // console.log("Item from recipeOption :",item.desc);
@@ -307,4 +261,3 @@ console.log("LatestRecipesfrom home.tsx :",latestRecipes);
 };
 
 export default Home;
-

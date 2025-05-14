@@ -2,7 +2,7 @@
 import { AntDesign, Entypo } from '@expo/vector-icons/';
 import { useRouter } from 'expo-router';
 import { View, Text, Image, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
-import { profileOptions } from '~/../data/data';
+import { profileOptions } from '~/data/data';
 import { useAuthContext } from '~/contexts/auth-provider';
 
 interface propsType {
@@ -26,7 +26,10 @@ const Profile = () => {
       <ScrollView>
         {/* name-pfp: profile image and name */}
         <View className=" mb-6 mt-3 items-center justify-center">
-          <Image source={require('~/../assets/images/icon.png')} className="mb-3 h-28 w-28 rounded-full" />
+          <Image
+            source={require('~/../assets/images/icon.png')}
+            className="mb-3 h-28 w-28 rounded-full"
+          />
           <Text className="font-poppinsRegular text-3xl font-bold">{user?.name}</Text>
         </View>
 

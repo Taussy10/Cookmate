@@ -1,5 +1,7 @@
 // import {router} from "expo-router"
 // you can't use expo router here caue it's out of the app directory 
+// import icons from '~/constants/icon';
+import { icons } from "~/constants/icon";
 
 export const allImages = [
   require('images/1.jpg'),
@@ -37,33 +39,43 @@ export const categoryData = [
   {
     id: 1,
     name: 'Breakfast',
-    img: require('images/1.jpg'),
+    // tried this method didn't work for some reason giving error
+    //  src\data\data.ts: src\data\data.ts:Invalid call 
+    // at line 42: require(_icon.icons.breakfast)
+
+//  ERROR  [Error: TransformError src\data\data.ts: 
+// src\data\data.ts:Invalid call at line 42:
+//  require(_icon.icons.breakfast)]
+
+// Why it happend know and try it later
+    // img: require(~/icons.breakfast),
+    img: require('../../assets/icons/breakfast.png'),
   
   },
   {
     id: 2,
     name: 'Lunch',
-    img: require('images/2.jpg'),
+    img: require('../../assets/icons/lunch.png'),
   },
   {
     id: 3,
     name: 'Dinner',
-    img: require('images/3.jpg'),
+    img: require('../../assets/icons/dinner.png'),
   },
   {
     id: 4,
-    name: 'Salad',
-    img: require('images/4.jpg'),
+    name: 'Dessert',
+    img: require('../../assets/icons/dessert.png'),
   },
   {
     id: 5,
-    name: 'Dessert',
-    img: require('images/5.jpg'),
+    name: 'Beverages',
+    img: require('../../assets/icons/beverages.png'),
   },
   {
     id: 6,
     name: 'Fast Food',
-    img: require('images/6.jpg'),
+    img: require('../../assets/icons/fast-food.png'),
   },
   {
     id: 7,
