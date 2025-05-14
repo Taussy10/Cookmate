@@ -1,12 +1,12 @@
 import { FlatList, Image, Text, View } from 'react-native';
 import {useState} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import images from '../../../constants/images';
+import images from '~/constants/images';
 import {Ionicons} from '@expo/vector-icons';
 import {useLocalSearchParams} from 'expo-router';
-import {addBookmark} from '../../../appwrite/appwrite';
+import {addBookmark} from '~/appwrite/appwrite';
 import { jsonrepair } from 'jsonrepair';
-import { useAuthContext } from '../../../contexts/auth-provider';
+import { useAuthContext } from '~/contexts/auth-provider';
 
 const Details = () => {
   const [bookmark, setBookmark] = useState(false)

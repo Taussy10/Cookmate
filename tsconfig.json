@@ -5,8 +5,13 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
+      // this only wrok for src directory imports
+      // if the directory out of the src then won't work  
+      // but we want fo data/data that's out of src and assets
+       // "./src/*"
       "~/*": [
-        "*"
+        // "./src/*"
+        "./src/*"
       ]
     }
   },

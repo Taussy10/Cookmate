@@ -11,7 +11,7 @@ import star from 'images/i1.png';
 import bowl from 'images/i2.png';
 import book from 'images/i3.png';
 import profile from 'images/i4.png';
-import gradient from 'assets/card-gradient.png';
+import gradient from 'assets/images/card-gradient.png';
 
 export default {
   img1,
