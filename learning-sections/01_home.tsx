@@ -9,7 +9,6 @@ import {
   Alert,
   ActivityIndicator,
   Button,
-  Pressable,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Entypo } from '@expo/vector-icons/';
@@ -140,8 +139,7 @@ const Home = () => {
   };
 
   return (
-    // <SafeAreaView className="flex-1 bg-blue-300 px-4 ">
-    <SafeAreaView className="flex-1 bg-[#f6f6f4] px-4 ">
+    <SafeAreaView className="flex-1 bg-blue-300 px-4 ">
       {/* So , in this we have 4 sections:
 1. Name and pfp(don't care about veg option)
 2. userInput filed  
@@ -154,7 +152,7 @@ const Home = () => {
 
       {/* For creating category*/}
       <FlatList
-        data={[1]}
+        data={categoryData}
         showsVerticalScrollIndicator={false}
         // numColumns={4}
         // horizontal
@@ -211,22 +209,9 @@ const Home = () => {
             </View>
           </View>
         }
-        renderItem={() => (
+        renderItem={({ item }) => (
           // this is container
-          <View>
-          <FlatList 
-          data={categoryData}
-          numColumns={3}
-      
-          // ItemSeparatorComponent={(
-          //   <View className=' mb-4'>
-          //   </View>
-          // )}
-          renderItem={({item}) => (
-            <View className=' flex-1 items-center'>
-
-           
-         {/* <TouchableOpacity 
+          <TouchableOpacity
             onPress={() =>
               router.push({
                 pathname: '/category',
@@ -234,58 +219,17 @@ const Home = () => {
               })
             }
             activeOpacity={0.7}
-            // This is for each coloumn 
-            className="  p-1  justify-between items  "
-         
-            > */}
-              {/* bg-orange-500  */}
-            {/* For each item */}
-            
-            <TouchableOpacity
-             onPress={() =>
-              router.push({
-                pathname: '/category',
-                params: item,
-              })
-            }
-            activeOpacity={0.7}
-            className= "bg-[#fffefe] px-1 active:bg-green-400 rounded-lg w-24  justify-center items-center mb-6 "
-            // style={{elevation: 1}}
-   
-            >
+            className="  flex-row bg-orange-500 ">
+            {/* For item */}
+            <View className="mr-20 justify-center text-center">
               <Image
                 source={item.img}
-                // resizeMode="cover"
-                className="size-16 overflow-hidden rounded-full mb-1    "
+                resizeMode="cover"
+                className="  h-14 w-14 overflow-hidden rounded-full    "
               />
-              <Text className="    font-pSemibold  "
-              // numberOfLines={1}
-              >{item.name}</Text>
-            </TouchableOpacity>
-          {/* </TouchableOpacity>   */}
-           </View>
-          )}
-          />
-          </View>
-          // <TouchableOpacity
-          //   onPress={() =>
-          //     router.push({
-          //       pathname: '/category',
-          //       params: item,
-          //     })
-          //   }
-          //   activeOpacity={0.7}
-          //   className="  flex-row bg-orange-500 ">
-          //   {/* For item */}
-          //   <View className="mr-20 justify-center text-center">
-          //     <Image
-          //       source={item.img}
-          //       resizeMode="cover"
-          //       className="  h-14 w-14 overflow-hidden rounded-full    "
-          //     />
-          //     <Text className=" font-poppinsSemiBold   text-center ">{item.name}</Text>
-          //   </View>
-          // </TouchableOpacity>
+              <Text className=" font-poppinsSemiBold   text-center ">{item.name}</Text>
+            </View>
+          </TouchableOpacity>
         )}
         // So we have to add something in footer of section
         ListFooterComponent={

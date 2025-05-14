@@ -77,11 +77,6 @@ export const categoryData = [
     name: 'Fast Food',
     img: require('../../assets/icons/fast-food.png'),
   },
-  {
-    id: 7,
-    name: 'Beverages',
-    img: require('images/4.jpg'),
-  },
 ];
 
 export const profileOptions = [
