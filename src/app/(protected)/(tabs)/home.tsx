@@ -13,20 +13,20 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Entypo } from '@expo/vector-icons/';
 import { categoryData, exploreData } from '~/data/data';
-import image from '../../constants/images';
+import image from '../../../constants/images';
 import { useState, useRef , useEffect} from 'react';
-import { prompts } from '../../constants/prompt';
+import { prompts } from '../../../constants/prompt';
 import ActionSheet, { ActionSheetRef } from 'react-native-actions-sheet';
-import images from '../../constants/images';
-import { generateAiImage, Model } from '../../ai/ai';
-import Loading from '../../components/loading-dialogue';
+import images from '../../../constants/images';
+import { generateAiImage, Model } from '../../../ai/ai';
+import Loading from '../../../components/loading-dialogue';
 // you can even create whole screen using flatlist cause it provides props like:
 // Header, footer component , empty componnet
-import { addRecipe, getLatestRecipes } from '../../appwrite/appwrite';
+import { addRecipe, getLatestRecipes } from '../../../appwrite/appwrite';
 import { jsonrepair } from 'jsonrepair';
 import { Redirect, router } from 'expo-router';
-import { useAuthContext } from '../../contexts/auth-provider';
-import { account } from '../../appwrite/appwrite';
+import { useAuthContext } from '../../../contexts/auth-provider';
+import { account } from '../../../appwrite/appwrite';
 const Home = () => {
   // here we go we executing useAuthContext 
   // that will return context value such loggedIn , setLoggedIn , user etc ..

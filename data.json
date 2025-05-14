@@ -1,0 +1,31 @@
+// This is what getCurrenUser function in appwrite.ts returns 
+{
+  "$createdAt": "2025-05-14T11:54:24.146+00:00",
+  "$id": "68248470236a96ae0534",
+  "$updatedAt": "2025-05-14T12:03:04.403+00:00",
+  "accessedAt": "2025-05-14T11:54:24.145+00:00",
+  "email": "tausif01092@gmail.com",
+  "emailVerification": true,
+  "labels": [],
+  "mfa": false,
+  "name": "Tausif",
+  "passwordUpdate": "",
+  "phone": "",
+  "phoneVerification": false,
+  "prefs": {},
+  "registration": "2025-05-14T11:54:24.145+00:00",
+  "status": true,
+  "targets": [
+    {
+      "$createdAt": "2025-05-14T11:54:24.191+00:00",
+      "$id": "682484702eb647773d33",
+      "$updatedAt": "2025-05-14T11:54:24.191+00:00",
+      "expired": false,
+      "identifier": "tausif01092@gmail.com",
+      "name": "",
+      "providerId": null,
+      "providerType": "email",
+      "userId": "68248470236a96ae0534"
+    }
+  ]
+}
