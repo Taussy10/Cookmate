@@ -1,5 +1,5 @@
 // import {router} from "expo-router"
-// you can't use expo rouer here 
+// you can't use expo router here caue it's out of the app directory 
 
 export const allImages = [
   require('images/1.jpg'),
@@ -31,18 +31,7 @@ export const exploreData = [
     id: 4,
     name: 'Watermelon Ice Cream',
     img: require('images/4.jpg'),
-  },
-  // {
-  //   id: 5,
-  //   name: 'Butter Chicken',
-  //   img: require('images/5.jpg'),
-  // },
-  // {
-  //   id: 6,
-  //   name: 'Chicken Curry',
-  //   img: require('images/6.jpg'),
-  // },
-];
+  }];
 
 export const categoryData = [
   {
@@ -102,11 +91,5 @@ export const profileOptions = [
     title: 'Browse More Recipes',
     icon: require('images/i3.png'),
     press: "/explore"
-  },
-  // {
-  //   id: 4,
-  //   title: 'Create New recepie',
-  //   icon: require('images/i4.png'),
-  //   // press: jo bhi hai ,
-  // },
+  }
 ];

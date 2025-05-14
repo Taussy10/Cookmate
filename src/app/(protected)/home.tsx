@@ -15,19 +15,39 @@ import { Entypo } from '@expo/vector-icons/';
 import { categoryData, exploreData } from '~/data/data';
 import image from '../../constants/images';
 import { useState, useRef , useEffect} from 'react';
-import { prompts } from '../..//constants/prompt';
+import { prompts } from '../../constants/prompt';
 import ActionSheet, { ActionSheetRef } from 'react-native-actions-sheet';
-import images from '../..//constants/images';
-import { generateAiImage, Model } from '../..//ai/ai';
-import Loading from '../..//components/loading-dialogue';
+import images from '../../constants/images';
+import { generateAiImage, Model } from '../../ai/ai';
+import Loading from '../../components/loading-dialogue';
 // you can even create whole screen using flatlist cause it provides props like:
 // Header, footer component , empty componnet
-import { addRecipe, getLatestRecipes } from '../..//appwrite/appwrite';
+import { addRecipe, getLatestRecipes } from '../../appwrite/appwrite';
 import { jsonrepair } from 'jsonrepair';
 import { Redirect, router } from 'expo-router';
-import { useAuthContext } from '../..//contexts/auth-provider';
-
+import { useAuthContext } from '../../contexts/auth-provider';
+import { account } from '../../appwrite/appwrite';
 const Home = () => {
+  // here we go we executing useAuthContext 
+  // that will return context value such loggedIn , setLoggedIn , user etc ..
+  // cause thre are in object(yeah key and values are same)
+  // so two ways to get them 
+
+  // 1. store it in a variables then by dot method get the each props 
+  // for example
+  // const a= useAuthContext()
+  // a.loading
+ 
+  // 2. Destructure it 
+  const {user, loggedIn} = useAuthContext()
+
+  console.log("User is me",user, loggedIn);
+  // async function name() {
+  //   const use =  await account.get()
+  //   console.log("User : ",use);
+  // }
+  
+
   const actionSheetRef = useRef<ActionSheetRef>(null);
   const [inputHeight, setInputHeight] = useState(0);
   // for storing inputs;
@@ -40,7 +60,6 @@ const Home = () => {
   const [openLoading, setOpenLoading] = useState(false);
   const [compeleteRecipe, setCompeleteRecipe] = useState([]);
   const [latestRecipes, setLatestRecipes] = useState([])
-  const {user} = useAuthContext()
 
 useEffect(() => {
  const allLatestRecipes = async() => {
@@ -171,7 +190,8 @@ console.log("LatestRecipesfrom home.tsx :",latestRecipes);
               />
 
               <TouchableOpacity
-                onPress={() => press()}
+                onPress={press}
+                // onPress={() => name()}
                 activeOpacity={0.7}
                 className=" flex-row items-center justify-center gap-1  rounded-xl bg-green-500 p-3">
                 {!loading ? (

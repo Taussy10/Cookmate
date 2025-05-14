@@ -16,7 +16,7 @@ import * as Linking from 'expo-linking';
 // basically it will open google's consent-screen(A screen where you can select gmail account for login)
 //  by which you can auth
 const client = new Client();
-const account = new Account(client);
+export const account = new Account(client);
 const database = new Databases(client);
 
 export const config = {
@@ -168,14 +168,16 @@ export const logout = async () => {
 export const getCurrentUser = async () => {
   try {
     const result = await account.get();
-    console.log('Result from getAccount fun in appwrite.ts :', result);
+    console.log('Result from getCurrentUser fun in appwrite.ts :', result);
     // if you want to photos of user then you can check in 59 mins
     // if(result.$id){
 
     // }
     return result;
   } catch (error) {
-    console.log('Error from getAccount fun in appwrite.ts ', error);
+    // using here log cause I don't want on 
+    // user-end get a model for showing error information 
+    console.log('Error from getCurrentUser fun in appwrite.ts ', error);
     // that means we didn't get anything
     return null;
   }

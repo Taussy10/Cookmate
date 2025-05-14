@@ -8,13 +8,14 @@ import { AntDesign } from '@expo/vector-icons';
 import { createUser } from '../appwrite/appwrite';
 import { allImages, exploreData } from '../../data/data';
 import { useAuthContext } from '../contexts/auth-provider';
-import Hello from '../components/hello';
 
 const Index = () => {
   const { loggedIn, user } = useAuthContext();
   // if (!loggedIn && user) {
   // It's very bad code cause when loggedIn true then it doesn't let naviage to home screen
   // instead if loggedIn is false then don't navigate
+  // if user is falsey value and user is also falsey value 
+  // then don't redirect it otherwise redirect it  
   if (loggedIn && user) {
     return <Redirect href="/home" />;
   }
@@ -22,13 +23,15 @@ const Index = () => {
   // This fun will login the user
   const loginUser = async () => {
     try {
-      // will call the createUser function
+      // will call the createUser function 
       // and store the return value in user variable
       const user = await createUser();
       // Then push the user to home screeen
       router.push('/home');
     } catch (error) {
-      console.error('Error in loginUser fun from index.tsx :', error);
+      // using here log cause I don't want on 
+    // user-end get a model for showing error information 
+      console.log('Error in loginUser fun from index.tsx :', error);
 
       Alert.alert('Auth Error', 'Failed to Authorize');
 
@@ -90,7 +93,7 @@ for 3 horizontal items  */}
         <Text className="  font-poppinsBold  text-custom-green  text-2xl">Cookmate AI</Text>
         <Text className="   font-semibold ">Generate delicious recipes in seconds</Text>
         <Text className="   font-semibold text-gray-600">with the power of AI</Text>
-      <Hello />
+      
         <TouchableOpacity
           onPress={loginUser}
           activeOpacity={0.7}
@@ -104,3 +107,4 @@ for 3 horizontal items  */}
 };
 
 export default Index;
+// Now it's time to manage user so that user can be accessible all over the app 
