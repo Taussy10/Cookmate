@@ -91,7 +91,7 @@ export const profileOptions = [
     id: 2,
     title: 'My Recipes',
     icon: require('images/i2.png'),
-    press: '/cookbook',
+    press: '/bookmark',
   },
   {
     id: 3,
