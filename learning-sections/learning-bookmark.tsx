@@ -17,7 +17,7 @@ import images from "~/constants/images";
 import { useAuthContext } from '~/contexts/auth-provider';
 
 
-const Cookbook = () => {
+const Bookmark = () => {
   const [myRecipes, setMyRecipes] = useState([]);
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [showMyRecipe, setShowMyRecipe] = useState(true);
@@ -42,10 +42,9 @@ const Cookbook = () => {
       setSavedRecipes(result);
     };
     getSavedRecipes();
-  }, []);
+  }, [user?.email]);
 
-  // console.log("Recipes from cookbook.tsx :",myRecipes);
-  console.log('Saved Recipes from cookbook.tsx :', savedRecipes);
+  console.log('Saved Recipes from Bookmark.tsx :', savedRecipes);
 
   const onRefresh = () => {
     // in starting start refershing
@@ -170,4 +169,4 @@ const Cookbook = () => {
   );
 };
 
-export default Cookbook;
+export default Bookmark;
