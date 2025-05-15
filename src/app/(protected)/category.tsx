@@ -33,7 +33,7 @@ const Category = () => {
             <Text className="mt-2 text-center text-2xl font-bold">
               hello{recipeCategory[0]?.category}
             </Text>
-            <Text className=" font-poppinsBold text-2xl text-gray-700">No Items Found</Text>
+            <Text className="  font-pBold text-2xl text-gray-700">No Items Found</Text>
           </View>
         }
         renderItem={({ item }) => (
@@ -65,7 +65,7 @@ const Category = () => {
               <Text
                 style={{ position: 'absolute', bottom: 4, textAlign: 'center', width: '100%' }}
                 numberOfLines={2}
-                className="font-poppinsSemiBold text-white">
+                className="font-pSemibold text-white">
                 {/* {item?.recipeName} */}
                 {item?.recipeName.length < 10 ? item?.recipeName : item?.recipeName.slice(0, 15)}...
               </Text>

@@ -17,9 +17,7 @@ const TabBarIcon = ({ title, focused, inactiveIcon, activeIcon }: propsType) => 
       <View className="  w-14 flex-1 items-center ">
         {/* for some reason you don't have to use require 
       key word if you have already imported */}
-
-        <Image source={activeIcon} className="  size-7" tintColor={'#4ade80'} />
-
+        <Image source={activeIcon} className="  size-7" tintColor={'#15803d'} />
         <Text className=" text-center text-[10px] font-semibold">{title}</Text>
       </View>
     );
@@ -87,12 +85,12 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="cookbook"
+        name="bookmark"
         options={{
           title: 'Cookook',
           tabBarIcon: ({ color, size, focused }) => (
             <TabBarIcon
-              title="Cookbook"
+              title="Bookmark"
               color={color}
               focused={focused}
               activeIcon={icons.bookmark}

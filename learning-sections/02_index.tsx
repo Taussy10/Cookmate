@@ -83,7 +83,7 @@ const Login = () => {
 
         <Text className=" mb-5 text-3xl font-bold  text-white">Your Journey starts here</Text>
 
-        <Text className="  font-poppinsBold  text-2xl text-white">Cookmate AI</Text>
+        <Text className="   font-pBold  text-2xl text-white">Cookmate AI</Text>
 
         <Text className="   font-semibold text-gray-600">
           Generate delicious recipes in seconds

@@ -16,7 +16,7 @@ const Home = () => {
       {/* name-pfp: profile image and name */}
       <View className=" mb-6 mt-3 flex-row items-center gap-2 ">
         <Image source={require('assets/icon.png')} className="mb-3 h-14 w-14 rounded-full" />
-        <Text className="font-poppinsRegular text-3xl font-bold">Tausif</Text>
+        <Text className=" font-pRegular text-3xl font-bold">Tausif</Text>
       </View>
 
       {/* For creating category*/}

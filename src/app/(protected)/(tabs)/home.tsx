@@ -165,13 +165,15 @@ const Home = () => {
               {/* name-pfp: profile image and name */}
               {/* <View className=" mb-6 mt-3 flex-row items-center gap-2 "> */}
               {/* If you export default images from files then for some reason you don't need require why know the reason  */}
-              <Text className="font-poppinsRegular text-xl font-bold">Hi {user?.name}</Text>
+              <Text className=" font-pRegular text-xl font-bold">Hi {user?.name}</Text>
               {/* <Image source={image.star} className="mb-3 h-14 w-14 rounded-full" /> */}
               {/* <Image source={icons.logout} resizeMode="contain" className="  h-6 w-6" /> */}
               {/* </View> */}
             </View>
-            <View className="  w-full rounded-2xl  bg-green-300 p-6">
-              <Text className=" font-poppinsBold mb-3 text-center   text-xl">
+            <View className="  w-full rounded-2xl    bg-action p-6"
+            elevation={2}
+            >
+              <Text className=" text-white  font-pBold mb-3 text-center   text-xl text-whitexz">
                 Let's start cooking
               </Text>
               <TextInput
@@ -194,11 +196,11 @@ const Home = () => {
                 onPress={generateRecipe}
                 // onPress={() => name()}
                 activeOpacity={0.7}
-                className=" flex-row items-center justify-center gap-1  rounded-xl bg-green-500 p-3">
+                className=" flex-row items-center justify-center gap-1  rounded-xl   bg-yellow-300 p-3">
                 {!loading ? (
-                  <View className="  flex-row">
+                  <View className="  flex-row items-center justify-center gap-2">
                     <Entypo name="star" size={28} color="yellow" />
-                    <Text className="   font-poppinsSemiBold  text-lg text-white ">
+                    <Text className="   font-pSemibold  text-lg text-white ">
                       Generate Recipe
                     </Text>
                   </View>
@@ -225,8 +227,8 @@ const Home = () => {
                         params: item,
                       })
                     }
-                    activeOpacity={0.4}
-                    className="bg-secondary active:bg-accent mb-6 w-24 items-center justify-center rounded-lg  px-1 ">
+                    activeOpacity={0.8}
+                    className="bg-secondary active:bg-action mb-6 w-24 items-center justify-center rounded-lg  px-1 ">
                     <Image
                       source={item.img}
                       // resizeMode="cover"
@@ -256,7 +258,7 @@ const Home = () => {
       <Loading visible={openLoading} text={'Loading...'} />
       <ActionSheet ref={actionSheetRef}>
         <View className=" rounded-lg  px-4 py-2  ">
-          <Text className=" font-poppinsBold text-center text-lg">Select your Recipe.</Text>
+          <Text className="  font-pBold text-center text-lg">Select your Recipe.</Text>
           {/* <View> */}
           {recipeOptions?.map((item, index) => {
             // console.log("Item from recipeOption :",item.desc);
@@ -266,8 +268,8 @@ const Home = () => {
                 onPress={() => generateCompleteRecipe(item)}
                 activeOpacity={0.8}
                 className=" mt-2  rounded-xl border   bg-green-500 p-2 ">
-                <Text className="  font-poppinsBold">{item?.recipeName}</Text>
-                <Text className=" font-poppinsRegular">{item?.desc}</Text>
+                <Text className="   font-pBold">{item?.recipeName}</Text>
+                <Text className="  font-pRegular">{item?.desc}</Text>
               </TouchableOpacity>
             );
           })}

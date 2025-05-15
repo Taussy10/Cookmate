@@ -16,6 +16,8 @@ import { getAllRecipes, getBookmarkRecipe, getUserRecipe } from '~/appwrite/appw
 import images from "~/constants/images";
 import { useAuthContext } from '~/contexts/auth-provider';
 
+// Need to remove my recipe 
+
 
 const Cookbook = () => {
   const [myRecipes, setMyRecipes] = useState([]);
@@ -63,7 +65,7 @@ const Cookbook = () => {
           className="  flex-row items-center gap-0.5"
           onPress={() => setShowMyRecipe(true)}>
           <Entypo name="star" size={28} color="black" />
-          <Text className="font-poppinsSemiBold text-xl">My Recipe</Text>
+          <Text className="font-pSemibold text-xl">My Recipe</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -71,7 +73,7 @@ const Cookbook = () => {
           onPress={() => setShowMyRecipe(false)}
           className="  flex-row items-center gap-0.5">
           <Entypo name="bookmark" size={28} color="black" />
-          <Text className="font-poppinsSemiBold text-xl">Saved</Text>
+          <Text className="font-pSemibold text-xl">Saved</Text>
         </TouchableOpacity>
       </View>
 
@@ -114,7 +116,7 @@ const Cookbook = () => {
                 <Text
                   style={{ position: 'absolute', bottom: 4, textAlign: 'center', width: '100%' }}
                   numberOfLines={2}
-                  className="font-poppinsSemiBold text-white">
+                  className="font-pSemibold text-white">
                   {item?.recipeName.length < 10 ? item?.recipeName : item?.recipeName.slice(0, 15)}
                   ...
                   {/* {item?.recipeName} */}
@@ -156,7 +158,7 @@ const Cookbook = () => {
                 <Text
                   style={{ position: 'absolute', bottom: 4, textAlign: 'center', width: '100%' }}
                   numberOfLines={2}
-                  className="font-poppinsSemiBold text-white">
+                  className="font-pSemibold text-white">
                   {item?.recipeName.length < 10 ? item?.recipeName : item?.recipeName.slice(0, 15)}
                   ...
                   {/* {item?.recipeName} */}

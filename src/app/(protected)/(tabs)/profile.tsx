@@ -58,7 +58,7 @@ const Profile = () => {
             source={require('~/../assets/images/icon.png')}
             className=" size-32 rounded-full"
           />
-          <Text className="font-poppinsRegular text-2xl font-bold">{user?.name}</Text>
+          <Text className=" font-pRegular text-2xl font-bold">{user?.name}</Text>
           <Text className=" font-pSemibold text-base text-gray-500 ">{user?.email}</Text>
         </View>
 
@@ -104,7 +104,7 @@ const Profile = () => {
                 <Text
                   // style={{ position: 'absolute', bottom: 4 }}
                   numberOfLines={2}
-                  className=" font-poppinsBold font-pSemibold text-[16px]">
+                  className=" font-pSemibold text-[16px]">
                   {item?.recipeName.length < 10 ? item?.recipeName : item?.recipeName.slice(0, 24)}
                 </Text>
               </TouchableOpacity>
@@ -133,7 +133,7 @@ const Profile = () => {
                 {/*For group of icon and title  */}
                 <View className=" flex-row gap-2">
                   <Image source={icon} className=" h-8 w-8" />
-                  <Text className="  font-poppinsSemiBold text-xl">{title}</Text>
+                  <Text className="  font-pSemibold text-xl">{title}</Text>
                 </View>
                 <AntDesign name="right" size={24} color="black" />
               </TouchableOpacity>
@@ -151,7 +151,7 @@ const Profile = () => {
             <View className=" flex-row gap-2">
               {/* <Entypo name="star" size={28} color="yellow" /> */}
               <Image source={icons.logout} className=" size-7" />
-              <Text className="  font-poppinsSemiBold text-xl">Logout</Text>
+              <Text className="  font-pSemibold text-xl">Logout</Text>
             </View>
             <AntDesign name="right" size={24} color="black" />
           </TouchableOpacity>
@@ -164,7 +164,7 @@ const Profile = () => {
          
             <View className=" flex-row gap-2">
               <Entypo name="star" size={28} color="yellow" />
-              <Text className="  font-poppinsSemiBold text-xl">This button is for testing</Text>
+              <Text className="  font-pSemibold text-xl">This button is for testing</Text>
             </View>
             <AntDesign name="right" size={24} color="black" />
           </TouchableOpacity> */}

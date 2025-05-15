@@ -40,7 +40,7 @@ if (isSignedIn) {
 
       {/* App Info container*/}
       <View className="  items-center justify-center bg-orange-400">
-        <Text className="  font-poppinsBold  text-2xl">Cookmate AI</Text>
+        <Text className=" font-pBold  text-2xl">Cookmate AI</Text>
 
         <Text className="   font-semibold text-gray-600">
           Generate delicious recipes in seconds
@@ -53,7 +53,7 @@ if (isSignedIn) {
         // onPress={() => Login()}
           activeOpacity={0.6}
           className=" w-full flex-row items-center justify-center rounded-2xl bg-green-500 p-5">
-          <Text className="   font-poppinsSemiBold  text-lg text-white ">Get Started</Text>
+          <Text className="    font-pSemibold text-lg text-white ">Get Started</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

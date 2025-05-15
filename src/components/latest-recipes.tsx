@@ -44,7 +44,7 @@ const LatestRecipes = ({ data }) => {
               <Text
                 style={{ position: 'absolute', bottom: 4 }}
                 numberOfLines={2}
-                className=" font-poppinsBold w-full text-center  text-white ">
+                className=" font-pBold w-full text-center  text-white ">
                 {item?.recipeName.length < 10 ? item?.recipeName : item?.recipeName.slice(0, 15)}
                 ...
               </Text>

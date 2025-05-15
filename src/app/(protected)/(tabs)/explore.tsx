@@ -51,7 +51,7 @@ console.log("Recipes from explore.tsx :",recipes);
               <Text
                 style={{ position: 'absolute', bottom: 4, textAlign: 'center', width:"100%" }}
                 numberOfLines={2}
-                className="font-poppinsSemiBold text-white">
+                className="font-pSemibold text-white">
                   {/* {item?.recipeName} */}
                 {item?.recipeName.length < 10 ? item?.recipeName : item?.recipeName.slice(0, 15)}...
               </Text>

@@ -92,7 +92,7 @@ for 3 horizontal items  */}
       <View className=" mt-4  h-56 items-center  justify-center rounded-xl  bg-secondary  p-5 "
       elevation={2}
       >
-        <Text className="  font-poppinsBold  text-custom-green  text-2xl  text-action"
+        <Text className="   font-pBold  text-custom-green  text-2xl  text-action"
         >Cookmate AI</Text>
         <Text className="   font-semibold ">Generate delicious recipes in seconds</Text>
         <Text className="   font-semibold text-gray-600">with the power of AI</Text>

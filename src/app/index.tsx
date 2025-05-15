@@ -28,7 +28,6 @@ const Index = () => {
       // and store the return value in user variable
       const user = await createUser();
       // Then push the user to home screeen
-      router.push('/home');
     } catch (error) {
       // using here log cause I don't want on
       // user-end get a model for showing error information

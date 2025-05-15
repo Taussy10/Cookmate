@@ -33,7 +33,7 @@ const Details = () => {
 
       {/* For title and bookmark */}
       <View className=" flex-row items-center mb-3 justify-between">
-        <Text className=" font-poppinsBold text-xl">{item.recipeName.slice(0,23)}..</Text>
+        <Text className=" font-pBold  text-xl">{item.recipeName.slice(0,23)}..</Text>
         {
           bookmark === false? 
           (  <Ionicons name= "bookmark-outline" size={28} color={'black'} 
@@ -45,8 +45,8 @@ const Details = () => {
 
 {/* For desciptions */}
 <View className='mb-3'>
-      <Text className=" font-poppinsBold text-lg  mb-1 ">Desciption</Text>
-      <Text className="  font-poppinsSemiBold">
+      <Text className=" font-pBold text-lg  mb-1 ">Desciption</Text>
+      <Text className="  font-pSemibold">
       {item.description}
       </Text>
 </View>
@@ -64,8 +64,8 @@ three divs: 1. For container
 
         {/* Here you don't need to flex-col cause by default cols are flex-col */}
         <View className='  flex-col '>
-          <Text className=' text-green-700 font-poppinsBold'>350 Cal</Text>
-          <Text className='   font-poppinsSemiBold text-gray-700'>Calories</Text>
+          <Text className=' text-green-700 font-pBold'>350 Cal</Text>
+          <Text className='   font-pSemibold text-gray-700'>Calories</Text>
         </View>
 
         </View>
@@ -73,8 +73,8 @@ three divs: 1. For container
 
 {/* Ingrdient list */}
 <View className=' flex-row justify-between items-center mb-6'>
-  <Text className='  font-poppinsBold text-lg'>Ingredient</Text>
-  <Text className='   font-poppinsSemiBold     text-base'>15 Items</Text>
+  <Text className='  font-pBold text-lg'>Ingredient</Text>
+  <Text className='   font-pSemibold     text-base'>15 Items</Text>
 </View>
 
 
@@ -86,7 +86,7 @@ three divs: 1. For container
 
       {/* Container For Recipe Steps */}
       <View>
-        <Text className='font-poppinsBold text-lg'>Recipe Steps</Text>
+        <Text className='font-pBold text-lg'>Recipe Steps</Text>
 
 {
           console.log("Item :",item.ingredients)
@@ -108,12 +108,12 @@ three divs: 1. For container
 } */}
         <View className=" flex-row   items-center gap-2 rounded-xl border bg-orange-300 p-4">
           <View className=" h-10 w-10 flex-col items-center justify-start rounded-xl bg-green-400">
-            <Text className=" text-center font-poppinsSemiBold  text-2xl">1</Text>
+            <Text className=" text-center font-pSemibold  text-2xl">1</Text>
           </View>
 
           <Text
             // Why flex-1 ? for filling avaible space
-            className=" flex-1  font-poppinsRegular">
+            className=" flex-1   font-pRegular">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum repellat Lorem ipsum
             dolor sit amet, co. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla debitis rerum corporis. Ad, sequi itaque praesentium, explicabo modi perspiciatis a totam ipsum obcaecati necessitatibus minus corrupti 
           </Text>
