@@ -8,7 +8,6 @@ import { AntDesign } from '@expo/vector-icons';
 import { createUser } from '../appwrite/appwrite';
 import { allImages, exploreData } from '../data/data';
 import { useAuthContext } from '../contexts/auth-provider';
-import images from '~/constants/images';
 
 const Index = () => {
   const { loggedIn, user } = useAuthContext();
@@ -45,36 +44,65 @@ const Index = () => {
       <StatusBar backgroundColor="white" />
 
       {/* Container for animations */}
-      <Image source={images.chef} className=" mb-2  h-[480px] w-full" resizeMode="cover" />
+      <View className=" mb-6 mt-3">
+        {/* By marquee componet let the items animate from right to left 
+for 3 horizontal items  */}
+        <Marquee
+          spacing={10}
+          speed={0.9}
+          style={{
+            transform: [{ rotate: '-4deg' }],
+          }}>
+          <View className="flex flex-row gap-6">
+            {allImages.map((item, index) => (
+              <Image key={index} source={item} className=" h-40 w-40 rounded-xl" />
+            ))}
+          </View>
+        </Marquee>
+
+        <Marquee
+          spacing={10}
+          speed={0.7}
+          style={{
+            transform: [{ rotate: '-4deg' }],
+            marginTop: 10,
+          }}>
+          <View className="flex flex-row gap-6">
+            {allImages.map((item, index) => (
+              <Image key={index} source={item} className=" h-40 w-40 rounded-xl" />
+            ))}
+          </View>
+        </Marquee>
+        <Marquee
+          spacing={10}
+          speed={0.5}
+          style={{
+            transform: [{ rotate: '-4deg' }],
+            marginTop: 10,
+          }}>
+          <View className="flex flex-row gap-6">
+            {allImages.map((item, index) => (
+              <Image key={index} source={item} className=" h-40 w-40 rounded-xl" />
+            ))}
+          </View>
+        </Marquee>
+      </View>
 
       {/* App Info and Login container*/}
-      <View className="     h-56 items-center     rounded-xl  bg-secondary  p-5 " elevation={1}>
-        <View>
-          <Text className="   text-custom-green  mb-2 font-pBold  text-2xl  text-green-800">
-            Cookmate AI
-          </Text>
-        </View>
-
-        <View className=" mb-8">
-          {/* Ditch takeouts and create delicious meals at home, Cookmate AI will guide you in every step */}
-          <Text className="    font-pSemibold  text-base text-gray-600  ">
-            Generate delicious recipes in seconds
-          </Text>
-          <Text className="  text-center font-pSemibold text-[20px] text-gray-600">
-            with the power of AI
-          </Text>
-        </View>
+      <View className=" mt-4  h-56 items-center  justify-center rounded-xl  bg-secondary  p-5 "
+      elevation={2}
+      >
+        <Text className="  font-poppinsBold  text-custom-green  text-2xl  text-action"
+        >Cookmate AI</Text>
+        <Text className="   font-semibold ">Generate delicious recipes in seconds</Text>
+        <Text className="   font-semibold text-gray-600">with the power of AI</Text>
 
         <TouchableOpacity
           onPress={loginUser}
           activeOpacity={0.7}
-          className="      w-full flex-row 
-          items-center justify-center 
-          gap-2 rounded-2xl bg-green-700 p-3
-          
-          ">
-          <AntDesign name="google" size={24} color="white" />
-          <Text className="    font-pSemibold text-[16px]   text-white">Continue with Google</Text>
+          className="   bg-custom-green w-full flex-row items-center justify-center gap-2 rounded-xl p-2  p-3 ">
+          <AntDesign name="google" size={24} color="black" />
+          <Text className="  text-base   font-semibold">Continue with Google</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

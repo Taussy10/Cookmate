@@ -28,9 +28,8 @@ import Loading from '~/components/loading-dialogue';
 // import { addRecipe, getLatestRecipes } from '~/appwrite/appwrite';
 import { addRecipe, getLatestRecipes } from '~/appwrite/appwrite';
 import { jsonrepair } from 'jsonrepair';
-import { Redirect, router } from 'expo-router';
+import {  router } from 'expo-router';
 import { useAuthContext } from '~/contexts/auth-provider';
-import { account } from '~/appwrite/appwrite';
 import LatestRecipes from '~/components/latest-recipes';
 const Home = () => {
   // here we go we executing useAuthContext

@@ -12,6 +12,7 @@ import bowl from 'images/i2.png';
 import book from 'images/i3.png';
 import profile from 'images/i4.png';
 import gradient from 'assets/images/card-gradient.png';
+import chef from "../../assets/images/chef.png";
 
 export default {
   img1,
@@ -28,4 +29,5 @@ export default {
   book,
   profile,
   gradient,
+  chef
 };

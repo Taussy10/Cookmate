@@ -14,7 +14,7 @@ module.exports = {
   colors: {
     primary: '#f6f6f4',
     secondary: '#ffffff',
-    accent: '#4ade80'
+    action: '#4ade80'
   }
   },
   },

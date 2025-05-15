@@ -135,7 +135,9 @@ const Profile = () => {
        <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => console.log("hello")}
-            className="flex-row items-center justify-between mb-3  bg-secondary  p-4">
+            // onPress={logout}
+            
+            className="flex-row items-center justify-between mb-3  active:bg-red-700  bg-secondary  p-4">
             {/*For group of icon and title  */}
             <View className=" flex-row gap-2">
               {/* <Entypo name="star" size={28} color="yellow" /> */}
