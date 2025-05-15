@@ -37,6 +37,15 @@ const Profile = () => {
   console.log('LoggedIn from profile.tsx :', loggedIn);
   console.log('user :', user);
 
+  const handleLogout = () => {
+    try {
+      logout();
+      router.push('/');
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+  };
   return (
     // This is design requriements
     <SafeAreaView className="flex-1  bg-primary px-4 ">
@@ -131,24 +140,21 @@ const Profile = () => {
             );
           })}
 
-      {/* for logout */}
-       <TouchableOpacity
+          {/* for logout */}
+          <TouchableOpacity
             activeOpacity={0.6}
-            onPress={() => console.log("hello")}
+            onPress={handleLogout}
             // onPress={logout}
-            
-            className="flex-row items-center justify-between mb-3  active:bg-red-700  bg-secondary  p-4">
+
+            className="mb-3 flex-row items-center justify-between  bg-secondary  p-4  active:bg-red-700">
             {/*For group of icon and title  */}
             <View className=" flex-row gap-2">
               {/* <Entypo name="star" size={28} color="yellow" /> */}
-              <Image source={icons.logout} className=' size-7' />
+              <Image source={icons.logout} className=" size-7" />
               <Text className="  font-poppinsSemiBold text-xl">Logout</Text>
             </View>
             <AntDesign name="right" size={24} color="black" />
           </TouchableOpacity>
-
-
-
 
           {/* This one is for testing  */}
           {/* <TouchableOpacity
@@ -162,8 +168,6 @@ const Profile = () => {
             </View>
             <AntDesign name="right" size={24} color="black" />
           </TouchableOpacity> */}
-
-
         </View>
       </ScrollView>
     </SafeAreaView>
