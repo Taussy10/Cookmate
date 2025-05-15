@@ -18,6 +18,7 @@ import profile_oultine  from "../../assets/icons/profile-outline.png"
 import profile from "../../assets/icons/profile.png"
 import bookmark_outline from "../../assets/icons/bookmark-outline.png"
 import bookmark from "../../assets/icons/bookmark.png"
+import logout from "../../assets/icons/logout.png"
 
 // export default {
 // breakfast,
@@ -40,5 +41,6 @@ home,
 profile_oultine,
 profile,
 bookmark_outline,
-bookmark
+bookmark,
+logout
 }
