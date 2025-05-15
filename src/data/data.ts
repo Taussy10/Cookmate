@@ -82,7 +82,7 @@ export const categoryData = [
 export const profileOptions = [
   {
     id: 1,
-    title: 'Create New recepie',
+    title: 'Create a New Recipe',
     icon: require('images/i1.png'),
     press: "/home"
   },
