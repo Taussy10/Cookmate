@@ -13,6 +13,7 @@ import book from 'images/i3.png';
 import profile from 'images/i4.png';
 import gradient from 'assets/images/card-gradient.png';
 import chef from "../../assets/images/chef.png";
+import emptyState from "../../assets/images/empty-state.png";
 
 export default {
   img1,
@@ -29,5 +30,6 @@ export default {
   book,
   profile,
   gradient,
-  chef
+  chef,
+  emptyState
 };

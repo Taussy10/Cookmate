@@ -30,10 +30,21 @@ const Category = () => {
         ListEmptyComponent={
           <View className="  flex-1 items-center justify-center">
             {/* Add here category name */}
-            <Text className="mt-2 text-center text-2xl font-bold">
-              hello{recipeCategory[0]?.category}
+            <Text className="mb-6 mt-2 text-center font-pBold  text-2xl">
+              {recipeCategory[0]?.category.length > 0
+                ? recipeCategory[0]?.category
+                : 'Food Category'}
             </Text>
-            <Text className="  font-pBold text-2xl text-gray-700">No Items Found</Text>
+            <Image source={images.emptyState} className="    " resizeMode="contain" />
+            {/* Text things */}
+            <View className=" mt-10 ">
+              <Text className="  text-center font-pBold text-2xl text-gray-700">
+                No Items Found
+              </Text>
+              <Text className="   font-pSemibold  text-gray-500">
+                Try a Different Food Category
+              </Text>
+            </View>
           </View>
         }
         renderItem={({ item }) => (

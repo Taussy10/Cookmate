@@ -28,7 +28,7 @@ import Loading from '~/components/loading-dialogue';
 // import { addRecipe, getLatestRecipes } from '~/appwrite/appwrite';
 import { addRecipe, getLatestRecipes } from '~/appwrite/appwrite';
 import { jsonrepair } from 'jsonrepair';
-import {  router } from 'expo-router';
+import { router } from 'expo-router';
 import { useAuthContext } from '~/contexts/auth-provider';
 import LatestRecipes from '~/components/latest-recipes';
 const Home = () => {
@@ -139,7 +139,7 @@ const Home = () => {
 
   return (
     // <SafeAreaView className="flex-1 bg-blue-300 px-4 ">
-    <SafeAreaView className="bg-primary  flex-1 px-4    ">
+    <SafeAreaView className=" mb-14 flex-1 bg-primary px-4      ">
       {/* So , in this we have 4 sections:
 1. Name and pfp(don't care about veg option)
 2. userInput filed  
@@ -148,7 +148,7 @@ const Home = () => {
 
 // Use Flatlist but the problem with it that with which data ? 
 // Most probably category data cause that's in middle 
-*/}
+*/} 
 
       {/* For creating category*/}
       <FlatList
@@ -165,15 +165,15 @@ const Home = () => {
               {/* name-pfp: profile image and name */}
               {/* <View className=" mb-6 mt-3 flex-row items-center gap-2 "> */}
               {/* If you export default images from files then for some reason you don't need require why know the reason  */}
-              <Text className=" font-pRegular text-xl font-bold ">Hi,<Text className=' uppercase'> {user?.name} </Text></Text>
+              <Text className=" font-pRegular text-xl font-bold ">
+                Hi,<Text className=" uppercase"> {user?.name} </Text>
+              </Text>
               {/* <Image source={image.star} className="mb-3 h-14 w-14 rounded-full" /> */}
               {/* <Image source={icons.logout} resizeMode="contain" className="  h-6 w-6" /> */}
               {/* </View> */}
             </View>
-            <View className="  w-full rounded-2xl    bg-action p-6"
-            elevation={2}
-            >
-              <Text className=" text-white  font-pBold mb-3 text-center   text-xl text-whitexz">
+            <View className="  w-full rounded-2xl    bg-action p-6" elevation={2}>
+              <Text className=" text-whitexz  mb-3 text-center font-pBold   text-xl text-white">
                 Let's start cooking
               </Text>
               <TextInput
@@ -200,9 +200,7 @@ const Home = () => {
                 {!loading ? (
                   <View className="  flex-row items-center justify-center gap-2">
                     <Entypo name="star" size={28} color="yellow" />
-                    <Text className="   font-pSemibold  text-lg text-white ">
-                      Generate Recipe
-                    </Text>
+                    <Text className="   font-pSemibold  text-lg text-white ">Generate Recipe</Text>
                   </View>
                 ) : (
                   <ActivityIndicator size={'large'} />
@@ -228,7 +226,7 @@ const Home = () => {
                       })
                     }
                     activeOpacity={0.8}
-                    className="  bg-primary  mb-6 w-24 items-center justify-center   rounded-2xl  px-1 ">
+                    className="  mb-6  w-24 items-center justify-center rounded-2xl   bg-primary  px-1 ">
                     <Image
                       source={item.img}
                       resizeMode="cover"
@@ -258,7 +256,7 @@ const Home = () => {
       <Loading visible={openLoading} text={'Loading...'} />
       <ActionSheet ref={actionSheetRef}>
         <View className=" rounded-lg  px-4 py-2  ">
-          <Text className="  font-pBold text-center text-lg">Select your Recipe.</Text>
+          <Text className="  text-center font-pBold text-lg">Select your Recipe.</Text>
           {/* <View> */}
           {recipeOptions?.map((item, index) => {
             // console.log("Item from recipeOption :",item.desc);

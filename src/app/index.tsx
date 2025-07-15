@@ -10,7 +10,7 @@ import { allImages, exploreData } from '../data/data';
 import { useAuthContext } from '../contexts/auth-provider';
 import images from '~/constants/images';
 
-const Index = () => {
+const Onboarding = () => {
   const { loggedIn, user } = useAuthContext();
   // if (!loggedIn && user) {
   // It's very bad code cause when loggedIn true then it doesn't let naviage to home screen
@@ -80,5 +80,5 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Onboarding;
 // Now it's time to manage user so that user can be accessible all over the app
