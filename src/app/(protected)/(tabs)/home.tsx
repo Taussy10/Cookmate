@@ -228,10 +228,10 @@ const Home = () => {
                       })
                     }
                     activeOpacity={0.8}
-                    className="bg-secondary active:bg-action mb-6 w-24 items-center justify-center rounded-lg  px-1 ">
+                    className="  bg-primary  mb-6 w-24 items-center justify-center   rounded-2xl  px-1 ">
                     <Image
                       source={item.img}
-                      // resizeMode="cover"
+                      resizeMode="cover"
                       className="mb-1 size-16 overflow-hidden rounded-full    "
                     />
                     <Text

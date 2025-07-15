@@ -12,7 +12,7 @@ module.exports = {
       pBold: ["Poppins_700Bold"],
     },
   colors: {
-    primary: '#f6f6f4',
+    primary: '#f6f6f6',
     secondary: '#ffffff',
     action: '#15803d'
     // action: '#4ade80'
