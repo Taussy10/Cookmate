@@ -51,24 +51,11 @@ const Profile = () => {
 
   return (
     // This is design requriements
-    <SafeAreaView className="mb-40 mt-10  flex-1 bg-primary  px-4  ">
-      {/* Custom top bar navigation: before the scrolling cause navigation shouldn't scroll  */}
-
-      <View className=' flex-row  justify-between '>
-            <AntDesign name="left" size={24} color="black" />
-            <Text className=' font-pBold  text-black text-xl'>Profile</Text>
-            <Text>Profile</Text>
-      </View>
-
+    <SafeAreaView className="flex-1  bg-primary px-4  mb-32 ">
       {/* Creating 2 sections in screen: name-PFP and options: */}
+
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View className=" mb-6 mt-10 items-center justify-center">
-          <Image
-            source={require('~/../assets/images/icon.png')}
-            className=" size-40 rounded-full"
-          />
-        </View>
-        {/* Container for userInfo: pfp, name and useremail 
+        {/* Container for userInfo: pfp, name and useremail */}
         <View className=" mb-6 mt-8 items-center justify-center">
           <Image
             source={require('~/../assets/images/icon.png')}
@@ -77,7 +64,8 @@ const Profile = () => {
           <Text className=" font-pRegular text-2xl font-bold">{user?.name}</Text>
           <Text className=" font-pSemibold text-base text-gray-500 ">{user?.email}</Text>
         </View>
-*/}
+
+        {/* Here put recipe of this user in scrollable view  */}
         {/* Container for user specific recipe */}
         <View className=" mb-6">
           <Text className=" font-pSemibold text-xl">My Recipes</Text>
@@ -131,51 +119,10 @@ const Profile = () => {
         <View
         // className=" bg-green-300"
         >
-          {/* For Name */}
-          <View className=" mb-5  flex-row gap-2">
-            <View className="  size-10 rounded-full bg-green-500 p-1">
-              <Image source={images.profile} className=" size-8" />
-            </View>
-
-            <View>
-              <Text className=" font-pSemibold  text-gray-500">Full Name</Text>
-              {/* for some reason I'm not getting last name so have to make numberOfLine = 2 */}
-              <Text className="  font-pBold  capitalize  " numberOfLines={2}>
-                {user?.name}
-              </Text>
-            </View>
-          </View>
-
-          {/* For Email */}
-          <View className=" mb-10  flex-row gap-2">
-            <View className="  size-10 rounded-full bg-green-500 p-1">
-              <Image source={images.star} className=" size-8" />
-            </View>
-
-            <View>
-              <Text className=" font-pSemibold  text-gray-500">Email</Text>
-              <Text className="  font-pBold">{user?.email}</Text>
-            </View>
-          </View>
-
-          <TouchableOpacity
-            activeOpacity={0.6}
-            // onPress={handleLogout}
-            // onPress={logout}
-
-            className="mb-3    flex-row items-center
-             justify-center   rounded-3xl border-2 border-red-900
-            bg-red-200  p-3
-              active:bg-red-900">
-            <View className=" flex-row  gap-2">
-              <Image source={icons.logout} className=" size-7" />
-              <Text className="   font-pBold text-xl text-red-700">Logout</Text>
-            </View>
-          </TouchableOpacity>
-
-          {/*
           {profileOptions.map(({ id, icon, title, press }) => {
             return (
+              // {/* View for each options  */}
+              // {/* optons one contains two things so create a container:  */}
               <TouchableOpacity
                 key={id}
                 activeOpacity={0.6}
@@ -186,6 +133,7 @@ const Profile = () => {
                   }
                 }}
                 className="  mb-5  flex-row items-center justify-between rounded-xl bg-secondary p-5 ">
+                {/*For group of icon and title  */}
                 <View className=" flex-row gap-2">
                   <Image source={icon} className=" h-8 w-8" />
                   <Text className="  font-pSemibold text-xl">{title}</Text>
@@ -194,20 +142,22 @@ const Profile = () => {
               </TouchableOpacity>
             );
           })}
-*/}
-          {/* for logout 
+
+          {/* for logout */}
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={handleLogout}
             // onPress={logout}
 
             className="mb-3 flex-row items-center justify-between  bg-secondary  p-4  active:bg-red-700">
+            {/*For group of icon and title  */}
             <View className=" flex-row gap-2">
+              {/* <Entypo name="star" size={28} color="yellow" /> */}
               <Image source={icons.logout} className=" size-7" />
               <Text className="  font-pSemibold text-xl">Logout</Text>
             </View>
             <AntDesign name="right" size={24} color="black" />
-          </TouchableOpacity>*/}
+          </TouchableOpacity>
 
           {/* This one is for testing  */}
           {/* <TouchableOpacity

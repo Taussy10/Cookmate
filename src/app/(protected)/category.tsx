@@ -33,15 +33,15 @@ const Category = () => {
             <Text className="mb-6 mt-2 text-center font-pBold  text-2xl">
               {recipeCategory[0]?.category.length > 0
                 ? recipeCategory[0]?.category
-                : 'Food Category'}
+                : 'Solve it'}
             </Text>
-            <Image source={images.emptyState} className="    " resizeMode="contain" />
+            <Image source={images.emptyState} className="   size-96    " resizeMode="contain" />
             {/* Text things */}
             <View className=" mt-10 ">
               <Text className="  text-center font-pBold text-2xl text-gray-700">
                 No Items Found
               </Text>
-              <Text className="   font-pSemibold  text-gray-500">
+              <Text className="    font-pSemibold  text-gray-500">
                 Try a Different Food Category
               </Text>
             </View>

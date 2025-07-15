@@ -100,3 +100,25 @@ export const profileOptions = [
     press: "/explore"
   }
 ];
+
+export const profileOption = [
+  {
+    id: 1,
+    title: 'Full Name',
+    icon: require('images/i1.png'),
+    press: "/home"
+  },
+
+  {
+    id: 2,
+    title: 'My Recipes',
+    icon: require('images/i2.png'),
+    press: '/bookmark',
+  },
+  {
+    id: 3,
+    title: 'Browse More Recipes',
+    icon: require('images/i3.png'),
+    press: "/explore"
+  }
+];
