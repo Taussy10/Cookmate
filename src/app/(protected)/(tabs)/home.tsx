@@ -165,7 +165,7 @@ const Home = () => {
               {/* name-pfp: profile image and name */}
               {/* <View className=" mb-6 mt-3 flex-row items-center gap-2 "> */}
               {/* If you export default images from files then for some reason you don't need require why know the reason  */}
-              <Text className=" font-pRegular text-xl font-bold">Hi,{user?.name}</Text>
+              <Text className=" font-pRegular text-xl font-bold ">Hi,<Text className=' uppercase'> {user?.name} </Text></Text>
               {/* <Image source={image.star} className="mb-3 h-14 w-14 rounded-full" /> */}
               {/* <Image source={icons.logout} resizeMode="contain" className="  h-6 w-6" /> */}
               {/* </View> */}
