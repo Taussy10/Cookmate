@@ -1,5 +1,5 @@
 // import {useState } from 'react';
-import { AntDesign, Entypo } from '@expo/vector-icons/';
+import { AntDesign, Entypo, Feather } from '@expo/vector-icons/';
 import { useRouter } from 'expo-router';
 import {
   View,
@@ -54,17 +54,17 @@ const Profile = () => {
     <SafeAreaView className="mb-40 mt-10  flex-1 bg-primary  px-4  ">
       {/* Custom top bar navigation: before the scrolling cause navigation shouldn't scroll  */}
 
-      <View className=' flex-row  justify-between '>
-            <AntDesign name="left" size={24} color="black" />
-            <Text className=' font-pBold  text-black text-xl'>Profile</Text>
-            <Text>Profile</Text>
+      <View className=" flex-row  justify-between ">
+        <AntDesign name="left" size={24} color="black" />
+        <Text className=" font-pBold  text-xl text-black">Profile</Text>
+        <Text>Profile</Text>
       </View>
 
       {/* Creating 2 sections in screen: name-PFP and options: */}
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className=" mb-6 mt-10 items-center justify-center">
           <Image
-            source={require('~/../assets/images/icon.png')}
+            source={{ uri: 'https://cdn.jsdelivr.net/gh/alohe/avatars/png/vibrent_21.png' }}
             className=" size-40 rounded-full"
           />
         </View>
@@ -133,8 +133,10 @@ const Profile = () => {
         >
           {/* For Name */}
           <View className=" mb-5  flex-row gap-2">
-            <View className="  size-10 rounded-full bg-green-500 p-1">
-              <Image source={images.profile} className=" size-8" />
+            <View
+              className="  size-10 items-center justify-center 
+            rounded-full  bg-[#15803d] p-1">
+              <Image source={icons.profile} className=" size-6" tintColor={'#90EE90'} />
             </View>
 
             <View>
@@ -148,8 +150,11 @@ const Profile = () => {
 
           {/* For Email */}
           <View className=" mb-10  flex-row gap-2">
-            <View className="  size-10 rounded-full bg-green-500 p-1">
-              <Image source={images.star} className=" size-8" />
+            <View
+              className="  size-10  items-center  justify-center  rounded-full 
+              bg-[#15803d]  p-1">
+              {/* <Image source={images.star} className=" size-8" /> */}
+              <Feather name="mail" size={24} color="#90EE90" />
             </View>
 
             <View>
