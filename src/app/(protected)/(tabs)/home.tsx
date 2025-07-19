@@ -46,10 +46,6 @@ const Home = () => {
   const { user, loggedIn } = useAuthContext();
 
   console.log('User is me', user, loggedIn);
-  // async function name() {
-  //   const use =  await account.get()
-  //   console.log("User : ",use);
-  // }
 
   const actionSheetRef = useRef<ActionSheetRef>(null);
   const [inputHeight, setInputHeight] = useState(0);
@@ -139,7 +135,7 @@ const Home = () => {
 
   return (
     // <SafeAreaView className="flex-1 bg-blue-300 px-4 ">
-    <SafeAreaView className=" mb-14 flex-1 bg-primary px-4      ">
+    <SafeAreaView className=" mb-14 flex-1 bg-white px-4      ">
       {/* So , in this we have 4 sections:
 1. Name and pfp(don't care about veg option)
 2. userInput filed  
@@ -148,44 +144,45 @@ const Home = () => {
 
 // Use Flatlist but the problem with it that with which data ? 
 // Most probably category data cause that's in middle 
-*/} 
+*/}
 
       {/* For creating category*/}
       <FlatList
+      // why 1? Actually I want to use flatlist here 1 is so that 
+      // it only renders ones so only one time everything will show
         data={[1]}
         showsVerticalScrollIndicator={false}
-        // numColumns={4}
-        // horizontal
+
         // For userInfor TextInput
         ListHeaderComponent={
-          // Container for user info and generating images
+          // Container for user info and input for generating recipies
           <View className="mb-6 mt-4">
             {/* Container for userInfo */}
             <View className=" mb-3 ">
-              {/* name-pfp: profile image and name */}
-              {/* <View className=" mb-6 mt-3 flex-row items-center gap-2 "> */}
               {/* If you export default images from files then for some reason you don't need require why know the reason  */}
               <Text className=" font-pRegular text-xl font-bold ">
                 Hi,<Text className=" uppercase"> {user?.name} </Text>
               </Text>
-              {/* <Image source={image.star} className="mb-3 h-14 w-14 rounded-full" /> */}
-              {/* <Image source={icons.logout} resizeMode="contain" className="  h-6 w-6" /> */}
-              {/* </View> */}
             </View>
 
-            <View className="  w-full rounded-2xl     bg-action p-6" elevation={2}>
-              <Text className=" text-whitexz  mb-3 
-              text-center font-pBold   text-xl text-white">
+{/* Container for generating input */}
+            <View className="  w-full rounded-2xl   bg-action p-6" 
+            >
+              <Text
+                className=" text-whitexz  mb-3 
+              text-center  font-pBold   text-xl text-white">
                 Let's start cooking
               </Text>
               <TextInput
-                className=" mb-6    rounded-2xl bg-white  text-black"
+                className=" mb-6   rounded-2xl bg-white  text-black"
                 style={{ height: Math.max(100, inputHeight) }}
                 multiline={true}
+                maxLength={100}
                 numberOfLines={4}
                 placeholder="What do you want to create? Add ingredients etc."
                 textAlignVertical="top"
-                // this for increasing size of input
+                // this controls what if content size inside input changes then what to do ?
+                // calculate the content keep increasing it.
                 onContentSizeChange={(e) => setInputHeight(e.nativeEvent.contentSize.height)}
                 // when user change the userInput in TextInput it will
                 // store in setInput function then useState

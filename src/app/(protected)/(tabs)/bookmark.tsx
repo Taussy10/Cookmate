@@ -1,4 +1,4 @@
-import { AntDesign, Entypo } from '@expo/vector-icons/';
+import { AntDesign } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
@@ -12,7 +12,8 @@ import {
   RefreshControl,
 } from 'react-native';
 
-import { getAllRecipes, getBookmarkRecipe, getUserRecipe } from '~/appwrite/appwrite';
+import { getBookmarkRecipe } from '~/appwrite/appwrite';
+import EmptyList from '~/components/global/Empty-list';
 import images from '~/constants/images';
 import { useAuthContext } from '~/contexts/auth-provider';
 
@@ -22,8 +23,8 @@ const Bookmark = () => {
   const [savedRecipes, setSavedRecipes] = useState([]);
   const { user } = useAuthContext();
   // These boolean works truthy falsey values
-  // if value is truthy then execute and if it's falsey value
-  // then don't execute
+  // if value is truthy then execute the function/code else
+  //  if it's falsey value then don't execute code.
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
@@ -34,51 +35,65 @@ const Bookmark = () => {
     getSavedRecipes();
   }, []);
 
-  console.log('Saved Recipes from Bookmark.tsx :', savedRecipes);
+  // console.log('Saved Recipes from Bookmark.tsx :', savedRecipes);
 
-  const onRefresh = () => {
+  const onRefresh = async () => {
     // in starting start refershing
     setRefreshing(true);
-    getBookmarkRecipe(user?.email);
+    const result = await getBookmarkRecipe(user?.email);
+    setSavedRecipes(result);
     // when refreshed just stop refreshing
     setRefreshing(false);
   };
-  return (
-    <SafeAreaView className="flex-1 px-4   mt-10  ">
-      
-      
 
+  return (
+    <SafeAreaView className="flex-1 px-4 mt-10 mb-28 bg-white">
+    
+
+      {/* Recipes List */}
       <FlatList
         numColumns={2}
-        showsVerticalScrollIndicator={false}
         data={savedRecipes}
+        showsVerticalScrollIndicator={false}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+        columnWrapperStyle={{ justifyContent: 'space-between' }}
+        // contentContainerStyle={{ paddingBottom: 80 }}
+        keyExtractor={(item, index) => index.toString()}
         ListHeaderComponent={
-<View className=" flex-row  justify-between  mb-10">
-        <AntDesign name="left" size={24} color="black"
-        onPress={() => router.back()}
-        />
-        <Text className=" font-pBold  text-xl text-black">Bookmark</Text>
-        <Text>Profile</Text>
-      </View>        }
+            // {/* Header */}
+      <View className="flex-row items-center justify-between mb-6">
+        <TouchableOpacity onPress={() => router.back()}>
+          <AntDesign name="left" size={24} color="black" />
+        </TouchableOpacity>
+        <Text className="font-pBold text-2xl text-black">Bookmarks</Text>
+         {/* Spacer to balance the layout so that 
+         both items can be occupy header space smoothly */}
+        <View style={{ width: 24 }} />
+      </View>
+        }
+        // Always add this
+         ListEmptyComponent={
+          <EmptyList />
+        }
         renderItem={({ item }) => (
           <TouchableOpacity
-            activeOpacity={0.8}
+            activeOpacity={0.85}
             onPress={() =>
               router.push({
                 pathname: '/details/[id]',
                 params: item,
               })
             }
-            className=" mx-2 my-2 ">
+            // Each item is taking 48%
+            className="mb-4 w-[48%]">
             <ImageBackground
               source={{ uri: item?.aiImage }}
               resizeMode="cover"
-              className="  h-64 w-44 overflow-hidden rounded-2xl    ">
+              className="h-64 w-full overflow-hidden rounded-2xl relative justify-end">
               <Image
                 source={images.gradient}
                 style={{
-                  height: '20%',
+                  height: '30%',
                   width: '100%',
                   position: 'absolute',
                   bottom: 0,
@@ -86,16 +101,17 @@ const Bookmark = () => {
                 }}
               />
               <Text
-                style={{ position: 'absolute', bottom: 4, textAlign: 'center', width: '100%' }}
                 numberOfLines={2}
-                className="font-pSemibold text-white">
-                {item?.recipeName.length < 10 ? item?.recipeName : item?.recipeName.slice(0, 15)}
-                ...
-                {/* {item?.recipeName} */}
+                className="font-pSemibold text-white px-2 pb-2 text-center text-sm">
+                {/* If name is short use full, else slice */}
+                {item?.recipeName.length <= 20
+                  ? item?.recipeName
+                  : `${item?.recipeName.slice(0, 18)}...`}
               </Text>
             </ImageBackground>
           </TouchableOpacity>
         )}
+       
       />
     </SafeAreaView>
   );

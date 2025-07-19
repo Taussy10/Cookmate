@@ -1,4 +1,3 @@
-// import {useState } from 'react';
 import { AntDesign, Entypo, Feather, FontAwesome6 } from '@expo/vector-icons/';
 import { useRouter } from 'expo-router';
 import {
@@ -27,6 +26,7 @@ const Profile = () => {
   const [myRecipes, setMyRecipes] = useState([]);
   const [currentUser, setCurrentUser] = useState([]);
   const { loggedIn, user } = useAuthContext();
+
   useEffect(() => {
     const allRecipes = async () => {
       const result = await getUserRecipe(user?.email);
@@ -35,28 +35,16 @@ const Profile = () => {
     allRecipes();
   }, []);
 
-// console.log("EMAIL :",user?.email);
-
   useEffect(() => {
     const getUser = async () => {
       const result = await getUsersDB(user?.email);
-      // Result is an array: then in curly so 
-      // you have to access array then object 
-      
+      // Result is an array: then in curly so
+      // you have to access array then object
       setCurrentUser(result);
     };
     getUser();
   }, []);
 
-  // 
-  // console.log("Current User", ...currentUser);
-  
-
-  // console.log('LoggedIn from profile.tsx :', loggedIn);
-  // console.log('user :', user);
-
-  // Always write function like this
-  // should be verb an action
   const handleLogout = () => {
     try {
       logout();
@@ -69,22 +57,20 @@ const Profile = () => {
 
   return (
     // This is design requriements
-    <SafeAreaView className="flex-1 bg-primary  px-4  mt-10">
-
-      {/* Custom header navigation: before the scrolling cause navigation shouldn't scroll  */}
-
-      <View className=" flex-row  justify-between ">
-        <AntDesign name="left" size={24} color="black"
-        onPress={() => router.back()}
-        />
-        <Text className=" font-pBold  text-xl text-black">Profile</Text>
-        <Text>Profile</Text>
-      </View>
-
+    <SafeAreaView className="mt-10 flex-1  bg-white  px-4">
       {/* Creating 2 sections in screen: name-PFP and options: */}
       <ScrollView showsVerticalScrollIndicator={false}>
+        {/* Custom header navigation: before the scrolling cause navigation shouldn't scroll  */}
+
+        <View className=" flex-row mb-6  justify-between ">
+          <AntDesign name="left" size={24} color="black" onPress={() => router.back()} />
+          <Text className=" font-pBold  text-2xl text-black">Profile</Text>
+          {/* Spacer to balance the layout so that 
+         both items can be occupy header space smoothly */}
+          <View style={{ width: 24 }} />
+        </View>
         {/* For image */}
-        <View className=" mb-6 mt-10 items-center justify-center">
+        <View className="  mb-6 items-center justify-center">
           <TouchableOpacity
             activeOpacity={0.7}
             className="  size-10 items-center justify-center 
@@ -102,15 +88,11 @@ const Profile = () => {
             />
           </TouchableOpacity>
 
-          <Image
-            
-            source={{ uri: currentUser[0]?.user_image}}
-            className=" size-40 rounded-full"
-          />
+          <Image source={{ uri: currentUser[0]?.user_image }} className=" size-40 rounded-full" />
         </View>
         {/* Container for user specific recipe */}
         <View className=" mb-6">
-          <Text className=" font-pSemibold text-xl">My Recipes</Text>
+          <Text className="  font-pBold text-2xl">My Recipes</Text>
 
           <FlatList
             data={myRecipes}
@@ -177,7 +159,6 @@ const Profile = () => {
               </Text>
             </View>
           </View>
-
           {/* For Email */}
           <View className=" mb-10  flex-row gap-2">
             <View
@@ -192,23 +173,21 @@ const Profile = () => {
               <Text className="  font-pBold">{user?.email}</Text>
             </View>
           </View>
-
           <TouchableOpacity
             activeOpacity={0.6}
             // onPress={handleLogout}
             // onPress={logout}
 
-            className="   flex-row items-center
-             justify-center   rounded-3xl border-2 border-red-900
-            bg-red-200  p-3
-              active:bg-red-900 mb-40">
+            className="   mb-40 flex-row
+             items-center   justify-center rounded-3xl border-2
+            border-red-900  bg-red-200
+              p-3 active:bg-red-900">
             <View className=" flex-row  gap-2">
               <Image source={icons.logout} className=" size-7" />
               <Text className="   font-pBold text-xl text-red-700">Logout</Text>
             </View>
           </TouchableOpacity>
-
-
+          fsdfsdfsdf
         </View>
       </ScrollView>
     </SafeAreaView>
