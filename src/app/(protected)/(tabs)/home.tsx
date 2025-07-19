@@ -172,8 +172,10 @@ const Home = () => {
               {/* <Image source={icons.logout} resizeMode="contain" className="  h-6 w-6" /> */}
               {/* </View> */}
             </View>
-            <View className="  w-full rounded-2xl    bg-action p-6" elevation={2}>
-              <Text className=" text-whitexz  mb-3 text-center font-pBold   text-xl text-white">
+
+            <View className="  w-full rounded-2xl     bg-action p-6" elevation={2}>
+              <Text className=" text-whitexz  mb-3 
+              text-center font-pBold   text-xl text-white">
                 Let's start cooking
               </Text>
               <TextInput
@@ -196,11 +198,11 @@ const Home = () => {
                 onPress={generateRecipe}
                 // onPress={() => name()}
                 activeOpacity={0.7}
-                className=" flex-row items-center justify-center gap-1  rounded-xl   bg-yellow-300 p-3">
+                className=" flex-row items-center justify-center gap-1  rounded-xl     bg-black p-3">
                 {!loading ? (
                   <View className="  flex-row items-center justify-center gap-2">
                     <Entypo name="star" size={28} color="yellow" />
-                    <Text className="   font-pSemibold  text-lg text-white ">Generate Recipe</Text>
+                    <Text className="  font-pBold  text-lg text-white ">Generate Recipe</Text>
                   </View>
                 ) : (
                   <ActivityIndicator size={'large'} />

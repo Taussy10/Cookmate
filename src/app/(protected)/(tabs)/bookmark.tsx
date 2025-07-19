@@ -1,4 +1,4 @@
-import { Entypo } from '@expo/vector-icons/';
+import { AntDesign, Entypo } from '@expo/vector-icons/';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
@@ -44,15 +44,23 @@ const Bookmark = () => {
     setRefreshing(false);
   };
   return (
-    <SafeAreaView className="flex-1 px-4 ">
+    <SafeAreaView className="flex-1 px-4   mt-10  ">
+      
+      
+
       <FlatList
         numColumns={2}
         showsVerticalScrollIndicator={false}
         data={savedRecipes}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
         ListHeaderComponent={
-          <Text className="mb-3 mt-2 text-center font-pBold text-2xl">Bookmark</Text>
-        }
+<View className=" flex-row  justify-between  mb-10">
+        <AntDesign name="left" size={24} color="black"
+        onPress={() => router.back()}
+        />
+        <Text className=" font-pBold  text-xl text-black">Bookmark</Text>
+        <Text>Profile</Text>
+      </View>        }
         renderItem={({ item }) => (
           <TouchableOpacity
             activeOpacity={0.8}

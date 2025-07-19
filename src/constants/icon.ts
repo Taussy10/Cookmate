@@ -19,6 +19,10 @@ import profile from "../../assets/icons/profile.png"
 import bookmark_outline from "../../assets/icons/bookmark-outline.png"
 import bookmark from "../../assets/icons/bookmark.png"
 import logout from "../../assets/icons/logout.png"
+// import pen from  "@/assets/icons/pen.png"
+import pen from  "../../assets/icons/pen.png"
+import searchOutline from  "../../assets/icons/search_outline.png"
+import search from  "../../assets/icons/search.png"
 
 // export default {
 // breakfast,
@@ -42,5 +46,8 @@ profile_oultine,
 profile,
 bookmark_outline,
 bookmark,
-logout
+logout,
+pen,
+search,
+
 }

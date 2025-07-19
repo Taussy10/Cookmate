@@ -29,6 +29,8 @@ export const config = {
   ingredientsCollectionId: process.env.EXPO_PUBLIC_APPWRITE_INGREDIENTS_COLLECTION_ID,
   stepsCollectionId: process.env.EXPO_PUBLIC_APPWRITE_STEPS_COLLECTION_ID,
   bookmarkCollectionId: process.env.EXPO_PUBLIC_APPWRITE_BOOKMARK_COLLECTION_ID,
+
+  usersCollectionId: process.env.EXPO_PUBLIC_APPWRITE_USERS_COLLECTION_ID,
 };
 
 // that ! is for saying to typescrip that these exists
@@ -168,7 +170,7 @@ export const logout = async () => {
 export const getCurrentUser = async () => {
   try {
     const result = await account.get();
-    console.log('Result from getCurrentUser fun in appwrite.ts :', result);
+    // console.log('Result from getCurrentUser fun in appwrite.ts :', result);
     // if you want to photos of user then you can check in 59 mins
     // if(result.$id){
 
@@ -341,6 +343,26 @@ export const getLatestRecipes = async () => {
       Query.orderDesc('$createdAt'),
       Query.limit(4),
     ]);
+    return response.documents;
+  } catch (error) {
+    console.log('from getBookmarkRecipe fun in appwrite.ts :', error);
+  }
+};
+
+// config.usersCollectionId!
+export const getUsersDB = async (email:string) => {
+  try {
+    const response = await database.listDocuments(config.databaseId!,
+       '687bb6eb002f57627090', [
+      // As a param accept attribute name ? how to know which params pass ? find in return
+      // response.documents cause many params are not listed in collections for example @createdAt
+      // Descending means 5,4,3,2,1 so it will show latest(5) created data first
+      // if you use orderDesc which means 1,3,2, so it will show oldes data according to
+      // attribute of email should match with provided email
+      Query.equal('email', email),
+    ]);
+    // console.log("RESPONSE :",response);
+    
     return response.documents;
   } catch (error) {
     console.log('from getBookmarkRecipe fun in appwrite.ts :', error);

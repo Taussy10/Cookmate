@@ -100,7 +100,7 @@ export default function TabLayout() {
               color={color}
               focused={focused}
               activeIcon={icons.home}
-              inactiveIcon={icons.home_outline}
+              inactiveIcon={icons.home}
             />
           ),
         }}
@@ -114,8 +114,8 @@ export default function TabLayout() {
               title="Explore"
               color={color}
               focused={focused}
-              activeIcon={icons.bookmark}
-              inactiveIcon={icons.bookmark_outline}
+              activeIcon={icons.search}
+              inactiveIcon={icons.search}
             />
           ),
         }}
@@ -131,7 +131,7 @@ export default function TabLayout() {
               color={color}
               focused={focused}
               activeIcon={icons.bookmark}
-              inactiveIcon={icons.bookmark_outline}
+              inactiveIcon={icons.bookmark}
             />
           ),
         }}
@@ -146,7 +146,7 @@ export default function TabLayout() {
               color={color}
               focused={focused}
               activeIcon={icons.profile}
-              inactiveIcon={icons.profile_oultine}
+              inactiveIcon={icons.profile}
             />
           ),
         }}
