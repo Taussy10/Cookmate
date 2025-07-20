@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { getsCategoryBasedRecipe } from '~/appwrite/appwrite';
 import images from '~/constants/images';
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
+import EmptyList from '~/components/global/Empty-list';
 
 const Category = () => {
   const item = useLocalSearchParams();
@@ -28,24 +29,11 @@ const Category = () => {
         showsVerticalScrollIndicator={false}
         data={recipeCategory}
         ListEmptyComponent={
-          <View className="  flex-1 items-center justify-center">
-            {/* Add here category name */}
-            <Text className="mb-6 mt-2 text-center font-pBold  text-2xl">
-              {recipeCategory[0]?.category.length > 0
-                ? recipeCategory[0]?.category
-                : 'Solve it'}
-            </Text>
-            <Image source={images.emptyState} className="   size-96    " resizeMode="contain" />
-            {/* Text things */}
-            <View className=" mt-10 ">
-              <Text className="  text-center font-pBold text-2xl text-gray-700">
-                No Items Found
-              </Text>
-              <Text className="    font-pSemibold  text-gray-500">
-                Try a Different Food Category
-              </Text>
-            </View>
-          </View>
+      <EmptyList 
+      recipeCategory={recipeCategory} 
+      title={"No Items Found"}
+      subTitle={"Try a Different Food Category"}
+      />
         }
         renderItem={({ item }) => (
           <TouchableOpacity

@@ -8,10 +8,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useEffect, useState } from 'react';
-import images from '~/constants/images';
 import { getAllRecipes } from '~/appwrite/appwrite';
 import { router } from 'expo-router';
 import { AntDesign } from '@expo/vector-icons';
+import EmptyList from '~/components/global/Empty-list';
 
 const Explore = () => {
   const [recipes, setrecipes] = useState([]);
@@ -30,8 +30,15 @@ const Explore = () => {
       <FlatList
         numColumns={2}
         showsVerticalScrollIndicator={false}
-        data={recipes}
+        // data={recipes}
+        data={[]}
         contentContainerStyle={{}}
+        ListEmptyComponent={
+          <EmptyList
+         title={"No Items Found"}
+      subTitle={"Make recipies using cookmate."}
+          />
+        }
         ListHeaderComponent={
           <View className=" flex-row  justify-between ">
             <AntDesign name="left" size={24} color="black" onPress={() => router.back()} />

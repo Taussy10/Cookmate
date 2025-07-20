@@ -1,4 +1,4 @@
-import { AntDesign, Entypo, Feather, FontAwesome6 } from '@expo/vector-icons/';
+import { AntDesign, Feather, } from '@expo/vector-icons/';
 import { useRouter } from 'expo-router';
 import {
   View,
@@ -9,17 +9,13 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
-import { profileOptions } from '~/data/data';
 import { useAuthContext } from '~/contexts/auth-provider';
 import { FlatList } from 'react-native-actions-sheet';
 import { useState, useEffect } from 'react';
 import { getUserRecipe, getUsersDB, logout } from '~/appwrite/appwrite';
 import { icons } from '~/constants/icon';
-interface propsType {
-  id: number;
-  title: string;
-  press: () => void;
-}
+import images from '~/constants/images';
+
 
 const Profile = () => {
   const router = useRouter();
@@ -71,7 +67,8 @@ const Profile = () => {
         </View>
         {/* For image */}
         <View className="  mb-6 items-center justify-center">
-          <TouchableOpacity
+          {/* In starting I won't give this feature  */}
+          {/* <TouchableOpacity
             activeOpacity={0.7}
             className="  size-10 items-center justify-center 
             rounded-full  bg-[#15803d] p-1"
@@ -86,9 +83,10 @@ const Profile = () => {
               className="  size-6    "
               tintColor={'white'}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
-          <Image source={{ uri: currentUser[0]?.user_image }} className=" size-40 rounded-full" />
+          <Image source={{ uri: currentUser[0]?.user_image }} 
+          className=" size-40 rounded-full" />
         </View>
         {/* Container for user specific recipe */}
         <View className=" mb-6">
@@ -117,32 +115,31 @@ const Profile = () => {
                   }}
                   resizeMode="cover"
                   className="h-48 w-64 overflow-hidden rounded-2xl ">
-                  {/* <Image
-                source={images.gradient}
-                style={{
-                  height: '20%',
-                  width: '100%',
-                  position: 'absolute',
-                  bottom: 0,
-                  backgroundColor: '#111827',
-                }}
-                /> */}
-                </ImageBackground>
+              <Image
+              
+                             source={images.gradient}
+                             style={{
+                               height: '20%',
+                               width: '100%',
+                               position: 'absolute',
+                               bottom: 0,
+                               backgroundColor: '#111827',
+                             }}
+                           />
                 <Text
-                  // style={{ position: 'absolute', bottom: 4 }}
+                  style={{ position: 'absolute', bottom: 2,  color:'white' }}
                   numberOfLines={2}
-                  className=" font-pSemibold text-[16px]">
+                  className=" font-pSemibold text-[16px] text-center w-full">
                   {item?.recipeName.length < 10 ? item?.recipeName : item?.recipeName.slice(0, 24)}
                 </Text>
+                  </ImageBackground>
               </TouchableOpacity>
             )}
           />
         </View>
 
         {/* Containe for Options*/}
-        <View
-        // className=" bg-green-300"
-        >
+        <View>
           {/* For Name */}
           <View className=" mb-5  flex-row gap-2">
             <View
@@ -187,7 +184,6 @@ const Profile = () => {
               <Text className="   font-pBold text-xl text-red-700">Logout</Text>
             </View>
           </TouchableOpacity>
-          fsdfsdfsdf
         </View>
       </ScrollView>
     </SafeAreaView>

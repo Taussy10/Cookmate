@@ -20,7 +20,6 @@ import { useState, useRef, useEffect } from 'react';
 // import { prompts } from '~/constants/prompt';
 import { prompts } from '~/constants/prompt';
 import ActionSheet, { ActionSheetRef } from 'react-native-actions-sheet';
-import images from '~/constants/images';
 import { generateAiImage, Model } from '~/ai/ai';
 import Loading from '~/components/loading-dialogue';
 // you can even create whole screen using flatlist cause it provides props like:

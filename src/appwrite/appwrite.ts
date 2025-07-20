@@ -36,82 +36,7 @@ export const config = {
 // that ! is for saying to typescrip that these exists
 client.setEndpoint(config.endpoint!).setProject(config.projectId!).setPlatform(config.platform!);
 
-// export const createUser = async () => {
-//   try {
-//     // Firstly create a deep link that works in all Expo enviroments(Basically web , IOS and ,andorid and others)
-//     // what is deepLink ? Redirect to other screen/page within the app same as navigations in web
-//     // for example: "https://example.com/home" to "https://example.com/home/user"
-//     // Btw one diff from web is they can move one to screen to another regardless of path
 
-//     // They are use for two things
-//     // 1. For moving within the app
-//     // 2. For moving outside app(can open and can open another just by it's scheme)
-
-//     // Ensure localhost is used for the hostname to validation error for success/failure URLs
-
-//     // Firstly get the URI of your project
-
-//     const deepLink = new URL(
-//       makeRedirectUri({
-//         scheme: 'cookmate',
-//         preferLocalhost: true,
-//       })
-//     );
-//     // This will return:  // "exp://localhost:8081" in string
-
-//     // If there are no deepLink then put it as localhost
-//     if (!deepLink.hostname) {
-//       deepLink.hostname = 'localhost';
-//     }
-//     // This deepLink.protocol will return schem of it: which is expo:
-//     //  so for making it a scheme add // using temeplate literals
-
-//     const scheme = `${deepLink.protocol}//`;
-
-//     // so, for now we created the scheme of it will return: expo://
-//     // one thing is that this is for expo for expo build it will diffrent(will app's own scheme)
-//     // https://docs.expo.dev/versions/latest/sdk/auth-session/#authsessionmakeredirecturioptions
-
-//     // start OAuth flow
-//     const loginUrl = await account.createOAuth2Token(
-//       OAuthProvider.Google,
-//       // Success URL:
-//       `${deepLink}`,
-//       // failure URL
-//       `${deepLink}`
-//     );
-
-//     // two things will generate: userId and secret key
-//     // and that will append in SucceURl
-//     console.log('LoginURL :', loginUrl);
-
-//     // Open loginUrl and listen for the scheme redirect
-//     // Will return show resutl whether it succed or not :
-//     const result = await WebBrowser.openAuthSessionAsync(`${loginUrl}`, scheme);
-//     console.log('Result from createUser fun in appwrite.ts :', result);
-//     if (result.type !== 'success') throw new Error('Failed to login browser');
-
-//     // Extract credentials from OAuth redirect URL
-//     const url = new URL(result.url);
-//     console.log('will create result URI :', url);
-
-//     const secret = url.searchParams.get('secret');
-//     console.log('will create secret :', secret);
-//     const userId = url.searchParams.get('userId');
-//     console.log('will create userId :', userId);
-
-//     //Then will create the sesion Create session with OAuth credentials
-//     // takes tow thing secret key and userID
-//     // userId
-//     const session = await account.createSession(userId, secret);
-//     // why returned cause we are gonna use if else statemnt for
-//     // redirect to home screen so we need something if expression that's why returned it
-//     // Redirect as needed
-//   } catch (error) {
-//     console.log('Error from createuser fun in appwrite.ts:', error);
-//     throw new Error('Getting errros while authorizing');
-//   }
-// };
 
 export const createUser = async () => {
   try {
@@ -202,7 +127,6 @@ export const addRecipe = async (parsedRecipe: any, aiImage: string, email: strin
     }))
   );
 
-  // export const addRecipe = async (parsedRecipe: any, aiImage:string) => {
   try {
     const recipe = parsedRecipe[0]; // assuming 1 recipe at a time
     const recipeDoc = await database.createDocument(
