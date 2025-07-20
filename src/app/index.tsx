@@ -18,7 +18,9 @@ const Onboarding = () => {
   // if user is falsey value and user is also falsey value
   // then don't redirect it otherwise redirect it
   if (loggedIn && user) {
-    return <Redirect href="/home" />;
+    // As such writing this much doesn't matter but stil let me write it.
+    // so from which and which screen it goes.
+    return <Redirect href="/(protected)/(tabs)/home" />;
   }
 
   // This fun will login the user

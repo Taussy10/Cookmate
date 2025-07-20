@@ -73,7 +73,10 @@ const Bookmark = () => {
         }
         // Always add this
          ListEmptyComponent={
-          <EmptyList />
+          <EmptyList
+         title={"No Items Found"}
+      subTitle={"Make recipies using cookmate."}
+          /> 
         }
         renderItem={({ item }) => (
           <TouchableOpacity

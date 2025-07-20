@@ -12,7 +12,7 @@ import {
   Pressable,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Entypo } from '@expo/vector-icons/';
+import { AntDesign, Entypo } from '@expo/vector-icons/';
 // import { categoryData, exploreData } from '~/data/data';
 import { categoryData, exploreData } from '~/data/data';
 import image from '~/constants/images';
@@ -22,9 +22,7 @@ import { prompts } from '~/constants/prompt';
 import ActionSheet, { ActionSheetRef } from 'react-native-actions-sheet';
 import { generateAiImage, Model } from '~/ai/ai';
 import Loading from '~/components/loading-dialogue';
-// you can even create whole screen using flatlist cause it provides props like:
-// Header, footer component , empty componnet
-// import { addRecipe, getLatestRecipes } from '~/appwrite/appwrite';
+
 import { addRecipe, getLatestRecipes } from '~/appwrite/appwrite';
 import { jsonrepair } from 'jsonrepair';
 import { router } from 'expo-router';
@@ -136,8 +134,8 @@ const Home = () => {
     // <SafeAreaView className="flex-1 bg-blue-300 px-4 ">
     <SafeAreaView className=" mb-14 flex-1 bg-white px-4      ">
       {/* So , in this we have 4 sections:
-1. Name and pfp(don't care about veg option)
-2. userInput filed  
+1. user salutation
+2. userInput fieled  
 3. Category 
 4. Latest Recipies
 
@@ -156,6 +154,7 @@ const Home = () => {
         ListHeaderComponent={
           // Container for user info and input for generating recipies
           <View className="mb-6 mt-4">
+              
             {/* Container for userInfo */}
             <View className=" mb-3 ">
               {/* If you export default images from files then for some reason you don't need require why know the reason  */}
@@ -165,7 +164,7 @@ const Home = () => {
             </View>
 
 {/* Container for generating input */}
-            <View className="  w-full rounded-2xl   bg-action p-6" 
+            <View className="  w-full rounded-2xl    bg-green-400 p-4" 
             >
               <Text
                 className=" text-whitexz  mb-3 
@@ -178,7 +177,8 @@ const Home = () => {
                 multiline={true}
                 maxLength={100}
                 numberOfLines={4}
-                placeholder="What do you want to create? Add ingredients etc."
+                placeholder="What do you want to cook? Add ingredients etc."
+                // so that text start from top 
                 textAlignVertical="top"
                 // this controls what if content size inside input changes then what to do ?
                 // calculate the content keep increasing it.
@@ -194,7 +194,8 @@ const Home = () => {
                 onPress={generateRecipe}
                 // onPress={() => name()}
                 activeOpacity={0.7}
-                className=" flex-row items-center justify-center gap-1  rounded-xl     bg-black p-3">
+                className=" flex-row items-center 
+                justify-center gap-1  rounded-xl     bg-action p-3">
                 {!loading ? (
                   <View className="  flex-row items-center justify-center gap-2">
                     <Entypo name="star" size={28} color="yellow" />

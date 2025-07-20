@@ -7,7 +7,7 @@ const LatestRecipes = ({ data }) => {
   const router = useRouter();
   return (
     <View>
-          <Text className=" font-pSemibold  text-xl">Latest Recipes</Text>
+      <Text className=" font-pSemibold  text-xl">Latest Recipes</Text>
       <FlatList
         data={data}
         horizontal
@@ -21,7 +21,9 @@ const LatestRecipes = ({ data }) => {
             onPress={() =>
               router.push({
                 pathname: '/details/[id]',
-                params: item,
+                // why id is key? I don't know cause I didn't
+                // understand dynamic screen concept
+                params: { id: item.$id },
               })
             }>
             <ImageBackground
@@ -44,7 +46,7 @@ const LatestRecipes = ({ data }) => {
               <Text
                 style={{ position: 'absolute', bottom: 4 }}
                 numberOfLines={2}
-                className=" font-pBold w-full text-center  text-white ">
+                className=" w-full text-center font-pBold  text-white ">
                 {item?.recipeName.length < 10 ? item?.recipeName : item?.recipeName.slice(0, 15)}
                 ...
               </Text>

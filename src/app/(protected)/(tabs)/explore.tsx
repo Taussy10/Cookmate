@@ -30,8 +30,8 @@ const Explore = () => {
       <FlatList
         numColumns={2}
         showsVerticalScrollIndicator={false}
-        // data={recipes}
-        data={[]}
+        data={recipes}
+        // data={[]}
         contentContainerStyle={{}}
         ListEmptyComponent={
           <EmptyList
@@ -52,7 +52,7 @@ const Explore = () => {
             onPress={() =>
               router.push({
                 pathname: '/details/[id]',
-                params: item,
+                params: {id: item.$id},
               })
             }
             className=" mx-2 my-2 ">

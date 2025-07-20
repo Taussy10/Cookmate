@@ -292,3 +292,20 @@ export const getUsersDB = async (email:string) => {
     console.log('from getBookmarkRecipe fun in appwrite.ts :', error);
   }
 };
+
+// Get recipe
+export const getRecipe = async(id:string) => {
+  try {
+  const result = await database.getDocument(
+    config.databaseId!,
+    config.recipeCollectionId!,
+    id,
+);  
+return result
+  } catch (error) {
+    console.log("ERROR :",error);
+    
+  }
+  
+
+}

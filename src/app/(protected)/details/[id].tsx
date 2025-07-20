@@ -1,127 +1,173 @@
 import { FlatList, Image, Text, View } from 'react-native';
-import {useState} from 'react';
+import { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import images from '~/constants/images';
-import {Ionicons} from '@expo/vector-icons';
-import {useLocalSearchParams} from 'expo-router';
-import {addBookmark} from '~/appwrite/appwrite';
-import { jsonrepair } from 'jsonrepair';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { router, useLocalSearchParams } from 'expo-router';
+import { addBookmark, getRecipe } from '~/appwrite/appwrite';
 import { useAuthContext } from '~/contexts/auth-provider';
 
-const Details = () => {
-  const [bookmark, setBookmark] = useState(false)
-  const item = useLocalSearchParams();
-    const {user} = useAuthContext()
-  console.log('Items from explore in details screen :', item);
-  // console.log('Ingredients:', jsonrepair(item.ingredients.name));
-  console.log('extraInfo:',jsonrepair(item.extraInfo))
-  console.log('ID:', item.$id);
+const RecipeDetails = () => {
+  const [bookmark, setBookmark] = useState(false);
+  const { user } = useAuthContext();
+  // console.log('Items from explore in details screen :', item);
+  // we got the id of opened recipe
+  const { id } = useLocalSearchParams();
+  const [currentRecipe, setCurrentRecipe] = useState([]);
 
-  // let unps =  jsonrepair(item)
-  // console.log(unps.UserName, unps.Rolename);
-  // console.log("UNUMS :",unps.$id);
-  
+  useEffect(() => {
+    getRecipeById(id);
+  }, []);
+
+  // Now we will call the that recipe data:
+
+  const getRecipeById = async (id: string) => {
+    try {
+      const recipe = await getRecipe(id);
+      setCurrentRecipe(recipe);
+    } catch (error) {
+      console.log('ERROR from getRecipeById function :', error);
+    }
+  };
+
+  console.log('CurrentRecipe :', currentRecipe);
   return (
     <SafeAreaView className="bg-white-300 flex-1 px-4 ">
-{/* Image */}
-
-
- <Image  source={{uri: item.aiImage}}
-   className='  w-full h-52  mt-8 mb-3 rounded-2xl'
-   resizeMode= 'cover'
-   />
-
-      {/* For title and bookmark */}
-      <View className=" flex-row items-center mb-3 justify-between">
-        <Text className=" font-pBold  text-xl">{item.recipeName.slice(0,23)}..</Text>
-        {
-          bookmark === false? 
-          (  <Ionicons name= "bookmark-outline" size={28} color={'black'} 
-            onPress={() => {addBookmark(item?.$id, user?.email); setBookmark(false)}} />):
-           ( <Ionicons name= "bookmark" size={28} color={'black'} 
-          onPress={() => {addBookmark(item?.$id, user?.email); setBookmark(true)}} />)
-        }
+      <View className=" mb-6 flex-row  justify-between ">
+        <AntDesign name="left" size={24} color="black" onPress={() => router.back()} />
+        <Text className=" font-pBold text-xl text-black">Recipe Details</Text>
+        {/* Spacer to balance the layout so that 
+         both items can be occupy header space smoothly */}
+        <View style={{ width: 24 }} />
       </View>
 
-{/* For desciptions */}
-<View className='mb-3'>
-      <Text className=" font-pBold text-lg  mb-1 ">Desciption</Text>
-      <Text className="  font-pSemibold">
-      {item.description}
-      </Text>
-</View>
+      <Image
+        source={{ uri: currentRecipe?.aiImage }}
+        className="  mb-3 mt-8  h-52 w-full rounded-2xl"
+        resizeMode="cover"
+      />
 
-      {/* to create this we need nested layout 
+      {/* For title and bookmark */}
+      <View className=" mb-3 flex-row items-center justify-between">
+        <Text className="  font-pSemibold  text-xl">
+          {currentRecipe?.recipeName?.slice(0, 20)}..
+        </Text>
+        {/* <Text>{currentRecipe?.recipeName}</Text> */}
+        {!bookmark ? (
+          <Ionicons
+            name="airplane"
+            size={28}
+            color={'black'}
+            onPress={() => {
+              addBookmark(currentRecipe?.$id, user?.email);
+              setBookmark(bookmark!);
+            }}
+          />
+        ) : (
+          <Ionicons
+            name="add-circle"
+            size={28}
+            color={'red'}
+            onPress={() => {
+              addBookmark(currentRecipe?.$id, user?.email);
+              setBookmark(!bookmark);
+            }}
+          />
+        )}
+      </View>
+
+      {/*
+    It's time to create extra info
+      to create this we need nested layout 
 three divs: 1. For container 
 2. for leaf 
 3. for texts
 */}
-      {/* Container */}
-      <View className="  flex-row items-center mb-3  ">
-        
-        <View className=' flex-row items-center gap-1 bg-green-300 p-1 w-32 rounded-2xl h-20'>
-        <Image source={images.star} className="  h-7 w-7" />
 
-        {/* Here you don't need to flex-col cause by default cols are flex-col */}
-        <View className='  flex-col '>
-          <Text className=' text-green-700 font-pBold'>350 Cal</Text>
-          <Text className='   font-pSemibold text-gray-700'>Calories</Text>
-        </View>
-
-        </View>
+      <View className="mb-6 flex-row gap-6">
+        {currentRecipe?.extraInfo?.map((item, id) => (
+          <View
+            key={id}
+            className="
+      h-20 
+      w-28 flex-row items-center gap-1
+      rounded-2xl bg-green-300 p-1">
+            <Text className=" size-7">{item.icon}</Text>
+            <View className="flex-col">
+              <Text className="font-pBold  text-action ">{item?.number}</Text>
+              <Text className=" font-pBold  text-black ">{item.label}</Text>
+            </View>
+          </View>
+        ))}
+      </View>
+      {/* For desciptions */}
+      <View className="mb-3">
+        <Text className=" mb-1  font-pBold  text-lg ">Desciption</Text>
+        <Text className="  font-pSemibold text-gray-500">{currentRecipe?.description}</Text>
       </View>
 
-{/* Ingrdient list */}
-<View className=' flex-row justify-between items-center mb-6'>
-  <Text className='  font-pBold text-lg'>Ingredient</Text>
-  <Text className='   font-pSemibold     text-base'>15 Items</Text>
-</View>
-
-
-
-
-
-
-
-
-      {/* Container For Recipe Steps */}
+      {/* Ingrdient list container */}
       <View>
-        <Text className='font-pBold text-lg'>Recipe Steps</Text>
-
-{
-          console.log("Item :",item.ingredients)
-          // console.log("Steps :",item.ingredients.map(({item, index})=> {
-          //   console.log("Items",item)
-          // }))
-          
-}
-{/* 
-{
-  
-  // item?.steps.map(({item, index})=>{
-  //   console.log("item",item);
-    
-  //   return(
-  //     <Text>Hello</Text>
-  //   )
-  // })
-} */}
-        <View className=" flex-row   items-center gap-2 rounded-xl border bg-orange-300 p-4">
-          <View className=" h-10 w-10 flex-col items-center justify-start rounded-xl bg-green-400">
-            <Text className=" text-center font-pSemibold  text-2xl">1</Text>
-          </View>
-
-          <Text
-            // Why flex-1 ? for filling avaible space
-            className=" flex-1   font-pRegular">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum repellat Lorem ipsum
-            dolor sit amet, co. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla debitis rerum corporis. Ad, sequi itaque praesentium, explicabo modi perspiciatis a totam ipsum obcaecati necessitatibus minus corrupti 
+        {/* Ingredient title container */}
+        <View className=" mb-2 flex-row items-center justify-between ">
+          <Text className="  font-pBold text-lg">Ingredient</Text>
+          <Text className="   font-pSemibold     text-base">
+            {currentRecipe?.ingredients?.length} Items
           </Text>
         </View>
 
+        {/* Container For Recipe Steps */}
+        <View>
+          {/* Why outside View so that we can flex it cause in map method 
+only one ingradent will render so we will make all */}
+          <View className=" mb-3">
+            {currentRecipe?.ingredients?.map((item, id) => {
+              console.log('ITEMSS :', item);
+
+              return (
+                // container
+
+                <View key={id} className="  flex-row items-center justify-between">
+                  {/* Container for icon and  */}
+                  <View className=" flex-row items-center gap-2">
+                    <Text>{item?.icon}</Text>
+                    <Text className="font-pSemibold">{item?.name}</Text>
+                  </View>
+                  <Text className=" font-pSemibold text-gray-500">{item?.qty}</Text>
+                </View>
+              );
+            })}
+          </View>
+        </View>
+      </View>
+
+      {/* Container for Recipe steps */}
+      <View className=" mb-10">
+        <Text className="mb-3 font-pBold text-lg">Recipe Steps</Text>
+
+        {/* Container for steps card */}
+        <View className="   gap-3">
+          {currentRecipe?.steps?.map((item, index) => {
+            return (
+              <View
+                key={index}
+                className=" flex-row    items-center gap-2 rounded-xl border bg-orange-300 p-4">
+                <View className=" h-10 w-10 flex-col items-center justify-start rounded-xl bg-green-400">
+                  <Text className=" text-center font-pSemibold  text-2xl">{item.step}</Text>
+                </View>
+
+                <Text
+                  // Why flex-1 ? for filling avaible space
+                  className=" flex-1   font-pRegular">
+                  {item.instruction}
+                </Text>
+              </View>
+            );
+          })}
+        </View>
       </View>
     </SafeAreaView>
   );
 };
 
-export default Details;
+export default RecipeDetails;

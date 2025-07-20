@@ -57,7 +57,6 @@ const Profile = () => {
       {/* Creating 2 sections in screen: name-PFP and options: */}
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Custom header navigation: before the scrolling cause navigation shouldn't scroll  */}
-
         <View className=" flex-row mb-6  justify-between ">
           <AntDesign name="left" size={24} color="black" onPress={() => router.back()} />
           <Text className=" font-pBold  text-2xl text-black">Profile</Text>
@@ -65,6 +64,7 @@ const Profile = () => {
          both items can be occupy header space smoothly */}
           <View style={{ width: 24 }} />
         </View>
+
         {/* For image */}
         <View className="  mb-6 items-center justify-center">
           {/* In starting I won't give this feature  */}
