@@ -4,34 +4,35 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import images from '~/constants/images';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
-import { addBookmark, getRecipe } from '~/appwrite/appwrite';
+import { addBookmark, getRecipe, removeBookmark } from '~/appwrite/appwrite';
 import { useAuthContext } from '~/contexts/auth-provider';
+import { ID } from 'react-native-appwrite';
 
 const RecipeDetails = () => {
-  // Intally it will be false 
+  // Intally it will be false: so no Bookmark
   const [bookmark, setBookmark] = useState(false);
   const { user } = useAuthContext();
   // console.log('Items from explore in details screen :', item);
   // we got the id of opened recipe
-  const { id:recipeId } = useLocalSearchParams();
+  const { id: recipeId } = useLocalSearchParams();
   const [currentRecipe, setCurrentRecipe] = useState([]);
 
   useEffect(() => {
     getRecipeById(recipeId);
   }, []);
 
+  console.log('BOokmark :', bookmark);
+
   // useEffect(() => {
   //   addedBookmark(recipeId, user?.email)
   // }, []);
-
-
 
   // Now we will call the that recipe data:
 
   // This is for getting recpie by id
   // id is param that is is passed in getRecipe function
   // value of id in getRecipe is in getRecipe funciton
-  // and value getRecipeById is in getRecipeById executor 
+  // and value getRecipeById is in getRecipeById executor
   const getRecipeById = async (id: string) => {
     try {
       const recipe = await getRecipe(id);
@@ -41,28 +42,54 @@ const RecipeDetails = () => {
     }
   };
 
-  //  const addedBookmark = async (id: string, email:string) => {
-  //   try {
-  //     const recipe = await addBookmark(id,email);
-  //     console.log("Bookmarked RECIPE :",recipe);
-      
-  //     // setCurrentRecipe(recipe);
-  //   } catch (error) {
-  //     console.log('ERROR from getRecipeById function :', error);
-  //   }
-  // };
+  const addedBookmark = async (id: string, email: string) => {
+    try {
+      const recipe = await addBookmark(id, email);
+      console.log('Bookmarked RECIPE :', recipe);
 
+      // setCurrentRecipe(recipe);
+    } catch (error) {
+      console.log('ERROR from getRecipeById function :', error);
+    }
+  };
 
-  // Handle bookmark: 
+  // Handle bookmark:
+  // Then we click on icon
   const handleBookmark = () => {
-    // Bookmark will be true: if clicked here 
-    // It's adding without clicking so have to dos eomthing
-    // Working fine make remove bookmark function also 
-    //  addBookmark(recipeId, user?.email)
+    // Then bookmark will be true then
+    //  if you once again click
+    // then it will become false
 
-    setBookmark(!bookmark)
-       
-  }
+    //  "Even after clicking, the bookmark state value will still
+    // be the old value for a moment, because React updates state
+    //  asynchronously and useState is function(hooks are function).
+    //  So I can't use the updated value immediately
+    //  after calling setBookmark. Instead, I need to compute the next
+    // value myself (e.g. const nextValue = !bookmark)."
+
+    const nextValue = !bookmark;
+
+    // Then we check does bookmar truthy value ??
+    if (nextValue) {
+      addBookmark(recipeId, user?.email);
+    } else {
+      removeBookmark(recipeId);
+    }
+    setBookmark(!bookmark);
+
+    // when user will click on button then it will
+    // become true then you can add bookmark
+
+    // If bookmark is true then run if statement else execute else statement
+    // but the problem with this code is that intially bookmark will be false
+    // so removeBookmark will execute and it won't bookmark it
+    // then you will click again the it will bookmark
+
+    // Bookmark will be true: if clicked here
+    // It's adding without clicking so have to dos eomthing
+    // Working fine make remove bookmark function also
+    //  addBookmark(recipeId, user?.email)
+  };
 
   console.log('CurrentRecipe :', currentRecipe.$id);
 
@@ -95,12 +122,12 @@ const RecipeDetails = () => {
               </Text>
               {/* This is intially */}
               <Ionicons
-              // If bookmark is true then show add circle else
-                  name= {bookmark?'add-circle': `remove-circle`}
-                  size={28}
-                  color={'black'}
-                  onPress={handleBookmark}
-                />
+                // If bookmark is true then show add circle else
+                name={bookmark ? 'add-circle' : `remove-circle`}
+                size={28}
+                color={'black'}
+                onPress={handleBookmark}
+              />
 
               {/* {!bookmark ? (
                 <Ionicons
@@ -200,7 +227,6 @@ only one ingradent will render so we will make all */}
                   return (
                     <View
                       key={index}
-                       
                       className=" flex-row  
                       items-center gap-2 
                       rounded-xl border bg-action p-2">
@@ -214,8 +240,8 @@ only one ingradent will render so we will make all */}
                         // Why flex-1 ? for filling avaible space
                         // oterwise it will only write in few area
                         className=" flex-1 font-pSemibold  text-white "
-                          //  numberOfLines={2}
-                        >
+                        //  numberOfLines={2}
+                      >
                         {item.instruction}
                       </Text>
                     </View>

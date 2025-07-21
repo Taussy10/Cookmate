@@ -208,7 +208,7 @@ export const getsCategoryBasedRecipe = async (category: string) => {
   }
 };
 
-export const addBookmark = async (id: string, email: string) => {
+export const addBookmark = async (recipeId: string, email: string) => {
   // Firstly we will check whether thatt bookmark exist or not in database ?
 
   try {
@@ -220,7 +220,7 @@ export const addBookmark = async (id: string, email: string) => {
       // Then it will only lsit 1 document cause only 1 unique recepiedId
       [
         Query.equal('email', email),
-        Query.equal('recipeId', id),
+        Query.equal('recipeId', recipeId),
       ]
     )
     console.log("Bookmark exist ?", checkBookmark);
@@ -230,10 +230,10 @@ export const addBookmark = async (id: string, email: string) => {
       const newBookmark = await database.createDocument(
         config.databaseId!,
         config.bookmarkCollectionId!,
-        ID.unique(),
+        recipeId ,
         {
           email: email,
-          recipeId: id,
+          recipeId: recipeId,
         }
       );
       console.log('Added bookmark:', newBookmark);
@@ -242,6 +242,23 @@ export const addBookmark = async (id: string, email: string) => {
     // console.log('Added bookmark :', promise);
   } catch (error) {
     console.log('from addBookmark fun in appwrite.ts :', error);
+  }
+};
+
+// We have to pass document id of that recipe(not recipe id)
+export const removeBookmark = async (recepiedId: string) => {
+
+  try {
+const result = await database.deleteDocument(
+  config.databaseId!,
+  config.bookmarkCollectionId!,
+  recepiedId,
+)
+console.log("Removed bookmark :",result);
+
+    // console.log('Added bookmark :', promise);
+  } catch (error) {
+    console.log('from removeBookmar fun in appwrite.ts :', error);
   }
 };
 
