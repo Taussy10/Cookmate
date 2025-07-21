@@ -12,7 +12,7 @@ import {
   RefreshControl,
 } from 'react-native';
 
-import { getBookmarkRecipe } from '~/appwrite/appwrite';
+import { getBookmarkedRecipe } from '~/appwrite/appwrite';
 import EmptyList from '~/components/global/Empty-list';
 import images from '~/constants/images';
 import { useAuthContext } from '~/contexts/auth-provider';
@@ -29,7 +29,7 @@ const Bookmark = () => {
 
   useEffect(() => {
     const getSavedRecipes = async () => {
-      const result = await getBookmarkRecipe(user?.email);
+      const result = await getBookmarkedRecipe(user?.email);
       setSavedRecipes(result);
     };
     getSavedRecipes();
@@ -40,7 +40,7 @@ const Bookmark = () => {
   const onRefresh = async () => {
     // in starting start refershing
     setRefreshing(true);
-    const result = await getBookmarkRecipe(user?.email);
+    const result = await getBookmarkedRecipe(user?.email);
     setSavedRecipes(result);
     // when refreshed just stop refreshing
     setRefreshing(false);

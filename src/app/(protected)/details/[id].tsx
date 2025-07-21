@@ -1,18 +1,19 @@
 import { FlatList, Image, Text, View } from 'react-native';
 import { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import images from '~/constants/images';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
-import { addBookmark, getRecipe, removeBookmark } from '~/appwrite/appwrite';
+import { getRecipe, removeBookmark } from '~/appwrite/appwrite';
 import { useAuthContext } from '~/contexts/auth-provider';
 import { ID } from 'react-native-appwrite';
+import { useBookmarkStore,    } from '~/store/bookmarkStore';
 
 const RecipeDetails = () => {
   // Intally it will be false: so no Bookmark
   const [bookmark, setBookmark] = useState(false);
   const { user } = useAuthContext();
-  // console.log('Items from explore in details screen :', item);
+const {bookmarks, add,remove, } = useBookmarkStore()
+
   // we got the id of opened recipe
   const { id: recipeId } = useLocalSearchParams();
   const [currentRecipe, setCurrentRecipe] = useState([]);
@@ -20,14 +21,18 @@ const RecipeDetails = () => {
   useEffect(() => {
     getRecipeById(recipeId);
   }, []);
+useEffect(() => {
+  loadBookmarks();
+}, []);
+  // It tells wheter that thing is included or not 
+  const isBookmarked = bookmarks.includes(currentRecipe.$id);
 
-  console.log('BOokmark :', bookmark);
+  
+  console.log("BOOKMARK :",isBookmarked);
 
-  // useEffect(() => {
-  //   addedBookmark(recipeId, user?.email)
-  // }, []);
+  // Add this 
+const loadBookmarks = useBookmarkStore(state => state.load);
 
-  // Now we will call the that recipe data:
 
   // This is for getting recpie by id
   // id is param that is is passed in getRecipe function
@@ -42,56 +47,40 @@ const RecipeDetails = () => {
     }
   };
 
-  const addedBookmark = async (id: string, email: string) => {
-    try {
-      const recipe = await addBookmark(id, email);
-      console.log('Bookmarked RECIPE :', recipe);
-
-      // setCurrentRecipe(recipe);
-    } catch (error) {
-      console.log('ERROR from getRecipeById function :', error);
-    }
-  };
-
   // Handle bookmark:
   // Then we click on icon
   const handleBookmark = () => {
-    // Then bookmark will be true then
-    //  if you once again click
-    // then it will become false
-
-    //  "Even after clicking, the bookmark state value will still
-    // be the old value for a moment, because React updates state
-    //  asynchronously and useState is function(hooks are function).
+    //  Even after clicking, the bookmark state value will still
+    // be the old-value(false) for a moment, so it will run removeBookmark
+    // why false ? because React updates state
+    //  asynchronously and useState is async function(hooks are function).
     //  So I can't use the updated value immediately
     //  after calling setBookmark. Instead, I need to compute the next
     // value myself (e.g. const nextValue = !bookmark)."
 
-    const nextValue = !bookmark;
+    // const nextValue = !bookmark;
 
     // Then we check does bookmar truthy value ??
-    if (nextValue) {
-      addBookmark(recipeId, user?.email);
-    } else {
-      removeBookmark(recipeId);
-    }
-    setBookmark(!bookmark);
+//    if (isBookmarked) {
+//   remove(recipeId); // It's already bookmarked, so remove it
+// } else {
+//   add(recipeId, user?.email); // It's not bookmarked, so add it
+// }
+  if (!currentRecipe?.$id) return;
 
-    // when user will click on button then it will
-    // become true then you can add bookmark
+  if (bookmarks.includes(currentRecipe.$id)) {
+    // Already bookmarked, so remove it
+    remove(currentRecipe.$id);
+  } else {
+    // Not bookmarked, so add it
+    add(currentRecipe.$id, user?.email);
+  }
 
-    // If bookmark is true then run if statement else execute else statement
-    // but the problem with this code is that intially bookmark will be false
-    // so removeBookmark will execute and it won't bookmark it
-    // then you will click again the it will bookmark
+    // setBookmark(!bookmark);
 
-    // Bookmark will be true: if clicked here
-    // It's adding without clicking so have to dos eomthing
-    // Working fine make remove bookmark function also
-    //  addBookmark(recipeId, user?.email)
   };
 
-  console.log('CurrentRecipe :', currentRecipe.$id);
+  // console.log('CurrentRecipe :', currentRecipe.$id);
 
   return (
     <SafeAreaView className="bg-white-300 flex-1 px-4 ">
@@ -123,11 +112,12 @@ const RecipeDetails = () => {
               {/* This is intially */}
               <Ionicons
                 // If bookmark is true then show add circle else
-                name={bookmark ? 'add-circle' : `remove-circle`}
+                name={isBookmarked ? 'bookmark' : 'bookmark-outline'}
                 size={28}
                 color={'black'}
                 onPress={handleBookmark}
-              />
+                />
+                {/* // onPress={() => isBookmarked ? remove(recipeId) : add(recipeId, user?.email)} */}
 
               {/* {!bookmark ? (
                 <Ionicons

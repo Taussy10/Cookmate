@@ -263,7 +263,7 @@ console.log("Removed bookmark :",result);
 };
 
 // This for bookmark screen
-export const getBookmarkRecipe = async (email: string) => {
+export const getBookmarkedRecipe = async (email: string) => {
   try {
     const response = await database.listDocuments(
       config.databaseId!,
