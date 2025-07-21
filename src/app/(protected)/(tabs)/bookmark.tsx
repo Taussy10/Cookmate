@@ -46,10 +46,9 @@ const Bookmark = () => {
     setRefreshing(false);
   };
 
-  return (
-    <SafeAreaView className="flex-1 px-4 mt-10 mb-28 bg-white">
-    
 
+  return (
+    <SafeAreaView className="mb-28 mt-10 flex-1 bg-white px-4">
       {/* Recipes List */}
       <FlatList
         numColumns={2}
@@ -60,23 +59,20 @@ const Bookmark = () => {
         // contentContainerStyle={{ paddingBottom: 80 }}
         keyExtractor={(item, index) => index.toString()}
         ListHeaderComponent={
-            // {/* Header */}
-      <View className="flex-row items-center justify-between mb-6">
-        <TouchableOpacity onPress={() => router.back()}>
-          <AntDesign name="left" size={24} color="black" />
-        </TouchableOpacity>
-        <Text className="font-pBold text-2xl text-black">Bookmarks</Text>
-         {/* Spacer to balance the layout so that 
+          // {/* Header */}
+          <View className="mb-6 flex-row items-center justify-between">
+            <TouchableOpacity onPress={() => router.back()}>
+              <AntDesign name="left" size={24} color="black" />
+            </TouchableOpacity>
+            <Text className="font-pBold text-2xl text-black">Bookmarks</Text>
+            {/* Spacer to balance the layout so that 
          both items can be occupy header space smoothly */}
-        <View style={{ width: 24 }} />
-      </View>
+            <View style={{ width: 24 }} />
+          </View>
         }
         // Always add this
-         ListEmptyComponent={
-          <EmptyList
-         title={"No Items Found"}
-      subTitle={"Make recipies using cookmate."}
-          /> 
+        ListEmptyComponent={
+          <EmptyList title={'No Items Found'} subTitle={'Make recipies using cookmate.'} />
         }
         renderItem={({ item }) => (
           <TouchableOpacity
@@ -84,7 +80,7 @@ const Bookmark = () => {
             onPress={() =>
               router.push({
                 pathname: '/details/[id]',
-                params: item,
+                params: { id: item.$id },
               })
             }
             // Each item is taking 48%
@@ -92,11 +88,11 @@ const Bookmark = () => {
             <ImageBackground
               source={{ uri: item?.aiImage }}
               resizeMode="cover"
-              className="h-64 w-full overflow-hidden rounded-2xl relative justify-end">
+              className="relative h-64 w-full justify-end overflow-hidden rounded-2xl">
               <Image
                 source={images.gradient}
                 style={{
-                  height: '30%',
+                  height: '20%',
                   width: '100%',
                   position: 'absolute',
                   bottom: 0,
@@ -105,16 +101,13 @@ const Bookmark = () => {
               />
               <Text
                 numberOfLines={2}
-                className="font-pSemibold text-white px-2 pb-2 text-center text-sm">
+                className="px-2 pb-2 text-center font-pSemibold text-sm text-white">
                 {/* If name is short use full, else slice */}
-                {item?.recipeName.length <= 20
-                  ? item?.recipeName
-                  : `${item?.recipeName.slice(0, 18)}...`}
+                {item?.recipeName.length <= 20 ? item?.recipeName : `${item?.recipeName.slice(0, 18)}...`}
               </Text>
             </ImageBackground>
           </TouchableOpacity>
         )}
-       
       />
     </SafeAreaView>
   );

@@ -8,19 +8,30 @@ import { addBookmark, getRecipe } from '~/appwrite/appwrite';
 import { useAuthContext } from '~/contexts/auth-provider';
 
 const RecipeDetails = () => {
+  // Intally it will be false 
   const [bookmark, setBookmark] = useState(false);
   const { user } = useAuthContext();
   // console.log('Items from explore in details screen :', item);
   // we got the id of opened recipe
-  const { id } = useLocalSearchParams();
+  const { id:recipeId } = useLocalSearchParams();
   const [currentRecipe, setCurrentRecipe] = useState([]);
 
   useEffect(() => {
-    getRecipeById(id);
+    getRecipeById(recipeId);
   }, []);
+
+  // useEffect(() => {
+  //   addedBookmark(recipeId, user?.email)
+  // }, []);
+
+
 
   // Now we will call the that recipe data:
 
+  // This is for getting recpie by id
+  // id is param that is is passed in getRecipe function
+  // value of id in getRecipe is in getRecipe funciton
+  // and value getRecipeById is in getRecipeById executor 
   const getRecipeById = async (id: string) => {
     try {
       const recipe = await getRecipe(id);
@@ -30,7 +41,31 @@ const RecipeDetails = () => {
     }
   };
 
-  console.log('CurrentRecipe :', currentRecipe);
+  //  const addedBookmark = async (id: string, email:string) => {
+  //   try {
+  //     const recipe = await addBookmark(id,email);
+  //     console.log("Bookmarked RECIPE :",recipe);
+      
+  //     // setCurrentRecipe(recipe);
+  //   } catch (error) {
+  //     console.log('ERROR from getRecipeById function :', error);
+  //   }
+  // };
+
+
+  // Handle bookmark: 
+  const handleBookmark = () => {
+    // Bookmark will be true: if clicked here 
+    // It's adding without clicking so have to dos eomthing
+    // Working fine make remove bookmark function also 
+    //  addBookmark(recipeId, user?.email)
+
+    setBookmark(!bookmark)
+       
+  }
+
+  console.log('CurrentRecipe :', currentRecipe.$id);
+
   return (
     <SafeAreaView className="bg-white-300 flex-1 px-4 ">
       <FlatList
@@ -58,8 +93,16 @@ const RecipeDetails = () => {
               <Text className="  font-pSemibold  text-xl">
                 {currentRecipe?.recipeName?.slice(0, 20)}..
               </Text>
-              {/* <Text>{currentRecipe?.recipeName}</Text> */}
-              {!bookmark ? (
+              {/* This is intially */}
+              <Ionicons
+              // If bookmark is true then show add circle else
+                  name= {bookmark?'add-circle': `remove-circle`}
+                  size={28}
+                  color={'black'}
+                  onPress={handleBookmark}
+                />
+
+              {/* {!bookmark ? (
                 <Ionicons
                   name="airplane"
                   size={28}
@@ -79,7 +122,7 @@ const RecipeDetails = () => {
                     setBookmark(!bookmark);
                   }}
                 />
-              )}
+              )} */}
             </View>
 
             {/*
@@ -128,15 +171,15 @@ three divs: 1. For container
 only one ingradent will render so we will make all */}
                 <View className=" mb-3">
                   {currentRecipe?.ingredients?.map((item, id) => {
-                    console.log('ITEMSS :', item);
+                    // console.log('ITEMSS :', item);
 
                     return (
                       // container
 
                       <View key={id} className="  flex-row items-center justify-between">
-                        {/* Container for icon and  */}
-                        <View className=" flex-row items-center gap-2">
-                          <Text>{item?.icon}</Text>
+                        {/* Container for icon   */}
+                        <View className=" flex-row items-center   ">
+                          <Text className=" size-8">{item?.icon}</Text>
                           <Text className="font-pSemibold">{item?.name}</Text>
                         </View>
                         <Text className=" font-pSemibold text-gray-500">{item?.qty}</Text>
@@ -157,16 +200,22 @@ only one ingradent will render so we will make all */}
                   return (
                     <View
                       key={index}
-                      className=" flex-row    items-center gap-2 rounded-xl border bg-action p-4">
+                       
+                      className=" flex-row  
+                      items-center gap-2 
+                      rounded-xl border bg-action p-2">
                       <View
-                        className="  size-10   items-center
-                 justify-start rounded-2xl bg-green-300">
+                        className="  size-10   items-center justify-center
+                           rounded-full bg-green-300 p-1">
                         <Text className=" text-center font-pSemibold  text-2xl">{item.step}</Text>
                       </View>
 
                       <Text
                         // Why flex-1 ? for filling avaible space
-                        className=" font-pSemibold  text-white">
+                        // oterwise it will only write in few area
+                        className=" flex-1 font-pSemibold  text-white "
+                          //  numberOfLines={2}
+                        >
                         {item.instruction}
                       </Text>
                     </View>

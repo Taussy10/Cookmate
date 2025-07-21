@@ -209,33 +209,50 @@ export const getsCategoryBasedRecipe = async (category: string) => {
 };
 
 export const addBookmark = async (id: string, email: string) => {
-  // export const addBookmark = async () => {
+  // Firstly we will check whether thatt bookmark exist or not in database ?
+
   try {
-    const promise = await database.createDocument(
+    const checkBookmark = await database.listDocuments(
       config.databaseId!,
       config.bookmarkCollectionId!,
-      ID.unique(),
-      {
-        // email: 't41ausssif02@gmail.com',
-        email: email,
-        recipeId: id,
-        // recipeId: "68034a0e001fd0ec0deb",
-      }
-    );
+      // Want to check recipe: if 
+      // both true then list the document 
+      // Then it will only lsit 1 document cause only 1 unique recepiedId
+      [
+        Query.equal('email', email),
+        Query.equal('recipeId', id),
+      ]
+    )
+    console.log("Bookmark exist ?", checkBookmark);
+    
 
-    console.log('Added bookmark :', promise);
+   if (checkBookmark.documents.length === 0) {
+      const newBookmark = await database.createDocument(
+        config.databaseId!,
+        config.bookmarkCollectionId!,
+        ID.unique(),
+        {
+          email: email,
+          recipeId: id,
+        }
+      );
+      console.log('Added bookmark:', newBookmark);
+    }
+
+    // console.log('Added bookmark :', promise);
   } catch (error) {
     console.log('from addBookmark fun in appwrite.ts :', error);
   }
 };
 
+// This for bookmark screen
 export const getBookmarkRecipe = async (email: string) => {
   try {
     const response = await database.listDocuments(
       config.databaseId!,
       config.bookmarkCollectionId!,
       [
-        // Query.equal('email', 'tausif01092@gmail.com')
+        // based on email it will bookmark things 
         Query.equal('email', email),
       ]
     );

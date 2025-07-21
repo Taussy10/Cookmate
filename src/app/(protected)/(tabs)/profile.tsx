@@ -1,4 +1,4 @@
-import { AntDesign, Feather, } from '@expo/vector-icons/';
+import { AntDesign, Feather } from '@expo/vector-icons/';
 import { useRouter } from 'expo-router';
 import {
   View,
@@ -15,7 +15,6 @@ import { useState, useEffect } from 'react';
 import { getUserRecipe, getUsersDB, logout } from '~/appwrite/appwrite';
 import { icons } from '~/constants/icon';
 import images from '~/constants/images';
-
 
 const Profile = () => {
   const router = useRouter();
@@ -57,7 +56,7 @@ const Profile = () => {
       {/* Creating 2 sections in screen: name-PFP and options: */}
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Custom header navigation: before the scrolling cause navigation shouldn't scroll  */}
-        <View className=" flex-row mb-6  justify-between ">
+        <View className=" mb-6 flex-row  justify-between ">
           <AntDesign name="left" size={24} color="black" onPress={() => router.back()} />
           <Text className=" font-pBold  text-2xl text-black">Profile</Text>
           {/* Spacer to balance the layout so that 
@@ -67,7 +66,8 @@ const Profile = () => {
 
         {/* For image */}
         <View className="  mb-6 items-center justify-center">
-          {/* In starting I won't give this feature  */}
+          {/* In starting I won't give this feature: To change the default pfp  */}
+
           {/* <TouchableOpacity
             activeOpacity={0.7}
             className="  size-10 items-center justify-center 
@@ -85,8 +85,7 @@ const Profile = () => {
             />
           </TouchableOpacity> */}
 
-          <Image source={{ uri: currentUser[0]?.user_image }} 
-          className=" size-40 rounded-full" />
+          <Image source={{ uri: currentUser[0]?.user_image }} className=" size-40 rounded-full" />
         </View>
         {/* Container for user specific recipe */}
         <View className=" mb-6">
@@ -106,7 +105,7 @@ const Profile = () => {
                 onPress={() =>
                   router.push({
                     pathname: '/details/[id]',
-                    params: item,
+                    params: { id: item?.$id },
                   })
                 }>
                 <ImageBackground
@@ -115,24 +114,25 @@ const Profile = () => {
                   }}
                   resizeMode="cover"
                   className="h-48 w-64 overflow-hidden rounded-2xl ">
-              <Image
-              
-                             source={images.gradient}
-                             style={{
-                               height: '20%',
-                               width: '100%',
-                               position: 'absolute',
-                               bottom: 0,
-                               backgroundColor: '#111827',
-                             }}
-                           />
-                <Text
-                  style={{ position: 'absolute', bottom: 2,  color:'white' }}
-                  numberOfLines={2}
-                  className=" font-pSemibold text-[16px] text-center w-full">
-                  {item?.recipeName.length < 10 ? item?.recipeName : item?.recipeName.slice(0, 24)}
-                </Text>
-                  </ImageBackground>
+                  <Image
+                    source={images.gradient}
+                    style={{
+                      height: '20%',
+                      width: '100%',
+                      position: 'absolute',
+                      bottom: 0,
+                      backgroundColor: '#111827',
+                    }}
+                  />
+                  <Text
+                    style={{ position: 'absolute', bottom: 2, color: 'white' }}
+                    numberOfLines={2}
+                    className=" w-full text-center font-pSemibold text-[16px]">
+                    {item?.recipeName.length < 10
+                      ? item?.recipeName
+                      : item?.recipeName.slice(0, 24)}
+                  </Text>
+                </ImageBackground>
               </TouchableOpacity>
             )}
           />

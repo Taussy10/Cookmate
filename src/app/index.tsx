@@ -49,7 +49,11 @@ const Onboarding = () => {
       <Image source={images.chef} className=" mb-2  h-[480px] w-full" resizeMode="cover" />
 
       {/* App Info and Login container*/}
-      <View className="     h-56 items-center     rounded-xl  bg-secondary  p-5 " elevation={1}>
+      <View
+        className="     h-56 items-center     rounded-xl  bg-secondary  p-5 "
+        style={{
+          elevation: 2,
+        }}>
         <View>
           <Text className="   text-custom-green  mb-2 font-pBold  text-2xl  text-green-800">
             Cookmate AI
@@ -69,7 +73,7 @@ const Onboarding = () => {
         <TouchableOpacity
           onPress={loginUser}
           activeOpacity={0.7}
-          className="      w-full flex-row 
+          className=" w-full flex-row 
           items-center justify-center 
           gap-2 rounded-2xl bg-green-700 p-3
           
@@ -83,4 +87,3 @@ const Onboarding = () => {
 };
 
 export default Onboarding;
-// Now it's time to manage user so that user can be accessible all over the app

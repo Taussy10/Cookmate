@@ -42,7 +42,7 @@ const Category = () => {
             onPress={() =>
               router.push({
                 pathname: '/details/[id]',
-                params: item,
+                params: {id: item?.$id},
               })
             }>
             <ImageBackground
