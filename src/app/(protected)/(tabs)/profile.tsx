@@ -8,6 +8,7 @@ import {
   ScrollView,
   ImageBackground,
   TouchableOpacity,
+  StatusBar
 } from 'react-native';
 import { useAuthContext } from '~/contexts/auth-provider';
 import { FlatList } from 'react-native-actions-sheet';
@@ -15,6 +16,7 @@ import { useState, useEffect } from 'react';
 import { getUserRecipe, getUsersDB, logout } from '~/appwrite/appwrite';
 import { icons } from '~/constants/icon';
 import images from '~/constants/images';
+// import { StatusBar } from 'expo-status-bar';
 
 const Profile = () => {
   const router = useRouter();
@@ -53,6 +55,9 @@ const Profile = () => {
   return (
     // This is design requriements
     <SafeAreaView className="mt-10 flex-1  bg-white  px-4">
+      {/* <StatusBar backgroundColor='white' style={'light'} /> */}
+      <StatusBar barStyle={"light-content"} backgroundColor={"white"} />
+      
       {/* Creating 2 sections in screen: name-PFP and options: */}
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Custom header navigation: before the scrolling cause navigation shouldn't scroll  */}
@@ -167,7 +172,8 @@ const Profile = () => {
 
             <View>
               <Text className=" font-pSemibold  text-gray-500">Email</Text>
-              <Text className="  font-pBold">{user?.email}</Text>
+              {/* <Text className="  font-pBold">{user?.email}</Text> */}
+              <Text className="  font-pBold">test123@gmail.com</Text>
             </View>
           </View>
           <TouchableOpacity

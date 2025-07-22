@@ -20,7 +20,7 @@ const Onboarding = () => {
   if (loggedIn && user) {
     // As such writing this much doesn't matter but stil let me write it.
     // so from which and which screen it goes.
-    return <Redirect href="/(protected)/(tabs)/home" />;
+    // return <Redirect href="/(protected)/(tabs)/home" />;
   }
 
   // This fun will login the user
@@ -71,7 +71,8 @@ const Onboarding = () => {
         </View>
 
         <TouchableOpacity
-          onPress={loginUser}
+          // onPress={loginUser}
+          onPress={() => router.push('/(protected)/(tabs)/home')}
           activeOpacity={0.7}
           className=" w-full flex-row 
           items-center justify-center 

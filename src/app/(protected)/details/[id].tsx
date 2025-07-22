@@ -6,13 +6,13 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { getRecipe, removeBookmark } from '~/appwrite/appwrite';
 import { useAuthContext } from '~/contexts/auth-provider';
 import { ID } from 'react-native-appwrite';
-import { useBookmarkStore,    } from '~/store/bookmarkStore';
+import { useBookmarkStore } from '~/store/bookmarkStore';
 
 const RecipeDetails = () => {
   // Intally it will be false: so no Bookmark
   const [bookmark, setBookmark] = useState(false);
   const { user } = useAuthContext();
-const {bookmarks, add,remove, } = useBookmarkStore()
+  const { bookmarks, add, remove } = useBookmarkStore();
 
   // we got the id of opened recipe
   const { id: recipeId } = useLocalSearchParams();
@@ -21,18 +21,17 @@ const {bookmarks, add,remove, } = useBookmarkStore()
   useEffect(() => {
     getRecipeById(recipeId);
   }, []);
-useEffect(() => {
-  loadBookmarks();
-}, []);
-  // It tells wheter that thing is included or not 
+  useEffect(() => {
+    loadBookmarks();
+  }, []);
+  // It tells wheter that recipeId include in bookmars arrray
+  //  Yeah or Naah
   const isBookmarked = bookmarks.includes(currentRecipe.$id);
 
-  
-  console.log("BOOKMARK :",isBookmarked);
+  console.log('BOOKMARK :', isBookmarked);
 
-  // Add this 
-const loadBookmarks = useBookmarkStore(state => state.load);
-
+  // Add this
+  const loadBookmarks = useBookmarkStore((state) => state.load);
 
   // This is for getting recpie by id
   // id is param that is is passed in getRecipe function
@@ -61,23 +60,22 @@ const loadBookmarks = useBookmarkStore(state => state.load);
     // const nextValue = !bookmark;
 
     // Then we check does bookmar truthy value ??
-//    if (isBookmarked) {
-//   remove(recipeId); // It's already bookmarked, so remove it
-// } else {
-//   add(recipeId, user?.email); // It's not bookmarked, so add it
-// }
-  if (!currentRecipe?.$id) return;
+    //    if (isBookmarked) {
+    //   remove(recipeId); // It's already bookmarked, so remove it
+    // } else {
+    //   add(recipeId, user?.email); // It's not bookmarked, so add it
+    // }
+    if (!currentRecipe?.$id) return;
 
-  if (bookmarks.includes(currentRecipe.$id)) {
-    // Already bookmarked, so remove it
-    remove(currentRecipe.$id);
-  } else {
-    // Not bookmarked, so add it
-    add(currentRecipe.$id, user?.email);
-  }
+    if (bookmarks.includes(currentRecipe.$id)) {
+      // Already bookmarked, so remove it
+      remove(currentRecipe.$id);
+    } else {
+      // Not bookmarked, so add it
+      add(currentRecipe.$id, user?.email);
+    }
 
     // setBookmark(!bookmark);
-
   };
 
   // console.log('CurrentRecipe :', currentRecipe.$id);
@@ -116,8 +114,8 @@ const loadBookmarks = useBookmarkStore(state => state.load);
                 size={28}
                 color={'black'}
                 onPress={handleBookmark}
-                />
-                {/* // onPress={() => isBookmarked ? remove(recipeId) : add(recipeId, user?.email)} */}
+              />
+              {/* // onPress={() => isBookmarked ? remove(recipeId) : add(recipeId, user?.email)} */}
 
               {/* {!bookmark ? (
                 <Ionicons
